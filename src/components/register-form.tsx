@@ -1,0 +1,117 @@
+"use client";
+
+import { UserRole } from "@/lib/types";
+import { registerPatient } from "@/services/auth/registerPatient";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
+import InputFieldError from "./shared/InputFieldError";
+import { Button } from "./ui/button";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "./ui/field";
+import { Input } from "./ui/input";
+
+const RegisterForm = () => {
+  const [state, formAction, isPending] = useActionState(registerPatient, null);
+  const [role, setRole] = useState<UserRole>(UserRole.TOURIST);
+  useEffect(() => {
+    if (state && !state.success && state.message) {
+      toast.error(state.message);
+    }
+  }, [state]);
+  return (
+    <form action={formAction}>
+      <FieldGroup>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
+            <label className="text-sm font-medium">I am a...</label>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setRole(UserRole.TOURIST)}
+                className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition ${
+                  role === UserRole.TOURIST
+                    ? "border-blue-600 bg-blue-50 text-blue-900"
+                    : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                Tourist
+              </button>
+              <button
+                type="button"
+                onClick={() => setRole(UserRole.GUIDE)}
+                className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition ${
+                  role === UserRole.GUIDE
+                    ? "border-blue-600 bg-blue-50 text-blue-900"
+                    : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                Guide
+              </button>
+            </div>
+          </div>
+          {/* Name */}
+          <Field>
+            <FieldLabel htmlFor="name">Full Name</FieldLabel>
+            <Input id="name" name="name" type="text" placeholder="John Doe" />
+            <InputFieldError field="name" state={state} />
+          </Field>
+          {/* Address */}
+          <Field>
+            <FieldLabel htmlFor="address">Address</FieldLabel>
+            <Input
+              id="address"
+              name="address"
+              type="text"
+              placeholder="123 Main St"
+            />
+            <InputFieldError field="address" state={state} />
+          </Field>
+          {/* Email */}
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="m@example.com"
+            />
+            <InputFieldError field="email" state={state} />
+          </Field>
+          {/* Password */}
+          <Field>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Input id="password" name="password" type="password" />
+
+            <InputFieldError field="password" state={state} />
+          </Field>
+          {/* Confirm Password */}
+          <Field className="md:col-span-2">
+            <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+            />
+
+            <InputFieldError field="confirmPassword" state={state} />
+          </Field>
+        </div>
+        <FieldGroup className="mt-4">
+          <Field>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Creating Account..." : "Create Account"}
+            </Button>
+
+            <FieldDescription className="px-6 text-center">
+              Already have an account?{" "}
+              <a href="/login" className="text-blue-600 hover:underline">
+                Sign in
+              </a>
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+      </FieldGroup>
+    </form>
+  );
+};
+
+export default RegisterForm;
