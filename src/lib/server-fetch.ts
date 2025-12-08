@@ -12,6 +12,7 @@ const serverFetchHelper = async (endpoint: string, options: RequestInit): Promis
     if (endpoint !== "/auth/refresh-token") {
         await getNewAccessToken();
     }
+    console.log('restOptions', restOptions)
 
     const response = await fetch(`${BACKEND_API_URL}${endpoint}`, {
         headers: {
@@ -36,9 +37,3 @@ export const serverFetch = {
     delete: async (endpoint: string, options: RequestInit = {}): Promise<Response> => serverFetchHelper(endpoint, { ...options, method: "DELETE" }),
 
 }
-
-/**
- * 
- * serverFetch.get("/auth/me")
- * serverFetch.post("/auth/login", { body: JSON.stringify({}) })
- */

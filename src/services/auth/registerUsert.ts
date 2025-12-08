@@ -3,11 +3,11 @@
 
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
-import { registerPatientValidationZodSchema } from "@/zod/auth.validation";
+import { registerUserValidationZodSchema } from "@/zod/auth.validation";
 import { loginUser } from "./loginUser";
 
 
-export const registerPatient = async (_currentState: any, formData: any): Promise<any> => {
+export const registerUser = async (_currentState: any, formData: any): Promise<any> => {
     try {
         const payload = {
             name: formData.get('name'),
@@ -18,11 +18,13 @@ export const registerPatient = async (_currentState: any, formData: any): Promis
             confirmPassword: formData.get('confirmPassword'),
         }
 
-        if (zodValidator(payload, registerPatientValidationZodSchema).success === false) {
-            return zodValidator(payload, registerPatientValidationZodSchema);
+
+
+        if (zodValidator(payload, registerUserValidationZodSchema).success === false) {
+            return zodValidator(payload, registerUserValidationZodSchema);
         }
 
-        const validatedPayload: any = zodValidator(payload, registerPatientValidationZodSchema).data;
+        const validatedPayload: any = zodValidator(payload, registerUserValidationZodSchema).data;
         const registerData = {
             password: validatedPayload.password,
             name: validatedPayload.name,
@@ -32,17 +34,20 @@ export const registerPatient = async (_currentState: any, formData: any): Promis
 
         }
 
-        const newFormData = new FormData();
+        // const newFormData = new FormData();
 
-        newFormData.append("data", JSON.stringify(registerData));
+        // newFormData.append("data", JSON.stringify(registerData));
 
-        if (formData.get("file")) {
-            newFormData.append("file", formData.get("file") as Blob);
-        }
+        // if (formData.get("file")) {
+        //     newFormData.append("file", formData.get("file") as Blob);
+        // }
 
         const res = await serverFetch.post("/user/register", {
-            body: newFormData,
-        })
+            body: JSON.stringify(registerData),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
         const result = await res.json();
 
@@ -60,7 +65,7 @@ export const registerPatient = async (_currentState: any, formData: any): Promis
         if (error?.digest?.startsWith('NEXT_REDIRECT')) {
             throw error;
         }
-        console.log(error);
+
         return { success: false, message: `${process.env.NODE_ENV === 'development' ? error.message : "Registration Failed. Please try again."}` };
     }
 }

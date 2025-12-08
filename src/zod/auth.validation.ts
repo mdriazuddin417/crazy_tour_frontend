@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import z from "zod";
 
-export const registerPatientValidationZodSchema = z.object({
+export const registerUserValidationZodSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
-    address: z.string().optional(),
     email: z.email({ message: "Valid email is required" }),
     role: z.enum(["TOURIST", "GUIDE"], {
         error: "Role must be either TOURIST or GUIDE",
     }),
+    address: z.string().min(1, { message: "Address is required" }),
     password: z.string().min(6, {
         error: "Password is required and must be at least 6 characters long",
     }).max(100, {
