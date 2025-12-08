@@ -1,8 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { getDefaultDashboardRoute, isAuthRoute, } from './lib/auth-utils';
-import { UserRole } from './lib/types';
+import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute, UserRole } from './lib/auth-utils';
 import { getNewAccessToken } from './services/auth/auth.service';
 import { getUserInfo } from './services/auth/getUserInfo';
 import { deleteCookie, getCookie } from './services/auth/tokenHandlers';
@@ -47,21 +46,29 @@ export async function proxy(request: NextRequest) {
         userRole = verifiedToken.role;
     }
 
+    const routerOwner = getRouteOwner(pathname);
+
+
     const isAuth = isAuthRoute(pathname)
 
-    // // Rule 1 : User is logged in and trying to access auth route. Redirect to default dashboard
-    // if (accessToken && isAuth) {
-    //     return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
-    // }
+    // Rule 1 : User is logged in and trying to access auth route. Redirect to default dashboard
+    if (accessToken && isAuth) {
+        return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
+    }
 
+
+    // Rule 2 : User is trying to access open public route
+    if (routerOwner === null) {
+        return NextResponse.next();
+    }
 
     // Rule 1 & 2 for open public routes and auth routes
 
-    // if (!accessToken) {
-    //     const loginUrl = new URL("/login", request.url);
-    //     loginUrl.searchParams.set("redirect", pathname);
-    //     return NextResponse.redirect('/login');
-    // }
+    if (!accessToken) {
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("redirect", pathname);
+        return NextResponse.redirect(loginUrl);
+    }
 
     // Rule 3 : User need password change
 
@@ -81,9 +88,16 @@ export async function proxy(request: NextRequest) {
         }
     }
 
+    // Rule 4 : User is trying to access common protected route
+    if (routerOwner === "ADMIN" || routerOwner === "GUIDE" || routerOwner === "TOURIST" || routerOwner === "COMMON") {
+        return NextResponse.next();
+    }
+    if (routerOwner === "COMMON") {
+        return NextResponse.next();
+    }
 
-    // Rule 5 : User is trying to access role based protected route
-    // if (routerOwner === "ADMIN" || routerOwner === "DOCTOR" || routerOwner === "PATIENT") {
+    // // Rule 5 : User is trying to access role based protected route
+    // if (routerOwner === "ADMIN" || routerOwner === "GUIDE" || routerOwner === "TOURIST") {
     //     if (userRole !== routerOwner) {
     //         return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
     //     }

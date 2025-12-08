@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server"
 
-
+import { isValidRedirectForRole, UserRole } from "@/lib/auth-utils";
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { loginValidationZodSchema } from "@/zod/auth.validation";
@@ -36,11 +36,8 @@ export const loginUser = async (_currentState: any, formData: any): Promise<any>
         });
 
         const result = await res.json();
-        console.log({result});
 
         const setCookieHeaders = res.headers.getSetCookie();
-
-        console.log({setCookieHeaders});
 
         if (setCookieHeaders && setCookieHeaders.length > 0) {
             setCookieHeaders.forEach((cookie: string) => {
@@ -88,16 +85,37 @@ export const loginUser = async (_currentState: any, formData: any): Promise<any>
 
         }
 
+        const userRole: UserRole = verifiedToken.role;
+
         if (!result.success) {
             throw new Error(result.message || "Login failed");
         }
 
-
+        if (redirectTo && result.data.needPasswordChange) {
+            const requestedPath = redirectTo.toString();
+            if (isValidRedirectForRole(requestedPath, userRole)) {
+                redirect(`/reset-password?redirect=${requestedPath}`);
+            } else {
+                redirect("/reset-password");
+            }
+        }
 
         if (result.data.needPasswordChange) {
             redirect("/reset-password");
         }
 
+
+
+        if (redirectTo) {
+            const requestedPath = redirectTo.toString();
+            if (isValidRedirectForRole(requestedPath, userRole)) {
+                redirect(`${requestedPath}?loggedIn=true`);
+            } else {
+                redirect(`/?loggedIn=true`);
+            }
+        } else {
+            redirect(`/?loggedIn=true`);
+        }
 
     } catch (error: any) {
         // Re-throw NEXT_REDIRECT errors so Next.js can handle them

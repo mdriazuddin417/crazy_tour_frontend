@@ -1,3 +1,5 @@
+import { IUser } from "@/lib/types";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getCookie } from "@/services/auth/tokenHandlers";
 import { Menu } from "lucide-react";
 import Link from "next/link";
@@ -6,14 +8,24 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import LogoutButton from "./LogoutButton";
 
 const PublicNavbar = async () => {
+  const userInfo = (await getUserInfo()) as IUser;
+  
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/explore", label: "Tour Explorer" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
-    { href: "/dashboard/tourist", label: "Dashboard" },
-
   ];
+
+  // console.log({userInfo});
+
+  if (userInfo?.role === "TOURIST") {
+    navItems.push({ href: "/tourist/dashboard", label: "Dashboard" });
+  } else if (userInfo?.role === "GUIDE") {
+    navItems.push({ href: "/guide/dashboard", label: "Dashboard" });
+  } else if (userInfo?.role === "ADMIN") {
+    navItems.push({ href: "/admin/dashboard", label: "Dashboard" });
+  }
 
   const accessToken = await getCookie("accessToken");
 
@@ -21,7 +33,7 @@ const PublicNavbar = async () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur  dark:bg-background/95">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">PH Doc</span>
+          <span className="text-xl font-bold text-primary">Crazy Tour</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">

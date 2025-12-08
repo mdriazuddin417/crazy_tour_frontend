@@ -21,12 +21,6 @@ export default function TouristDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
 
-  // useEffect(() => {
-  //   if (!authLoading && (!user || user.role !== UserRole.TOURIST)) {
-  //     router.push('/login');
-  //   }
-  // }, [user, authLoading, router]);
-
   useEffect(() => {
     fetchUserAndListings();
     fetchBookings();

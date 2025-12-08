@@ -24,12 +24,6 @@ export default function GuideDashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (!authLoading && (!user || user.role !== UserRole.GUIDE)) {
-  //     router.push('/login');
-  //   }
-  // }, [user, authLoading, router]);
-
   useEffect(() => {
     if (user?.id && user.role === UserRole.GUIDE) {
       Promise.all([fetchListings(), fetchBookings()]);
