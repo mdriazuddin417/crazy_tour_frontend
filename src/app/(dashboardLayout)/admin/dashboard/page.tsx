@@ -361,7 +361,7 @@ export default function AdminDashboard() {
                 {tourListing.totalHighestBookedTour.map((tour) => (
                   <div
                     key={tour._id}
-                    className='flex items-center justify-between p-4 bg-slate-700 rounded-lg hover:bg-slate-600 transition-colors'
+                    className='flex items-center justify-between p-4 bg-slate-700 rounded-lg hover:bg-slate-600 transition-colors p-2'
                   >
                     <div>
                       <h3 className='text-white font-semibold'>

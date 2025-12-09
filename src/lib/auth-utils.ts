@@ -83,3 +83,6 @@ export const isValidRedirectForRole = (redirectPath: string, role: UserRole): bo
 
     return false;
 }
+
+export { UserRole };
+

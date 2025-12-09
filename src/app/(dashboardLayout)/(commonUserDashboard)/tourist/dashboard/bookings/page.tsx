@@ -4,7 +4,9 @@ import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
 import TablePagination from '@/components/shared/TablePagination';
 import { TableSkeleton } from '@/components/shared/TableSkeleton';
 import { queryStringFormatter } from '@/lib/formatters';
+import { Booking } from '@/lib/types';
 import { getBookingsService } from '@/services/booking/booking.service';
+import { getUserInfo } from '@/services/user/user.service';
 
 import { Suspense } from 'react';
 
@@ -13,13 +15,16 @@ const AdminBookingManagementPage = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
+  const { data: user } = await getUserInfo();
   const searchParamsObj = await searchParams;
   const queryString = queryStringFormatter(searchParamsObj);
   const bookingsResult = await getBookingsService(queryString);
 
   // Handle different response structures
-  const bookingsData = bookingsResult?.data?.data || bookingsResult?.data || [];
-  console.log('bookingsData', bookingsData);
+  const bookingsData = bookingsResult?.data?.data?.filter(
+    (listing: Booking) => listing?.touristId?._id === user?._id
+  );
+
   const meta = bookingsResult?.data?.meta || {
     page: 1,
     limit: 10,
@@ -28,10 +33,10 @@ const AdminBookingManagementPage = async ({
   const totalPages = Math.ceil((meta.total || 1) / (meta.limit || 10));
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 p-4 md:p-6'>
       <ManagementPageHeader
-        title='Bookings Management'
-        description='Manage all tour bookings and their status'
+        title='My Booked Tours'
+        description='All my booked tours'
       />
 
       {/* Search, Filters */}

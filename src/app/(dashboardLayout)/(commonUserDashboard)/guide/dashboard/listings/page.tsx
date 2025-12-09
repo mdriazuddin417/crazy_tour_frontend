@@ -4,6 +4,8 @@ import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
 import TablePagination from '@/components/shared/TablePagination';
 import { TableSkeleton } from '@/components/shared/TableSkeleton';
 import { queryStringFormatter } from '@/lib/formatters';
+import { IUser, TourListing } from '@/lib/types';
+import { getUserInfo } from '@/services/auth/getUserInfo';
 import { getListingsService } from '@/services/listing/listing.service';
 
 import { Suspense } from 'react';
@@ -13,12 +15,16 @@ const AdminTourListingManagementPage = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
+  const userInfo = (await getUserInfo()) as IUser;
   const searchParamsObj = await searchParams;
   const queryString = queryStringFormatter(searchParamsObj);
   const listingsResult = await getListingsService(queryString);
 
   // Handle different response structures
-  const listingsData = listingsResult?.data?.data || listingsResult?.data || [];
+  const listingsData =
+    listingsResult?.data?.data.filter(
+      (listing: TourListing) => listing.guideId === userInfo?._id
+    ) || [];
   const meta = listingsResult?.data?.meta || {
     page: 1,
     limit: 10,

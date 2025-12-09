@@ -27,7 +27,7 @@ const AdminUsersManagementPage = async ({
   const totalPages = Math.ceil((meta.total || 1) / (meta.limit || 10));
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 p-4 md:p-6'>
       <ManagementPageHeader
         title='Users Management'
         description='Manage all users including tourists, guides, and admins'

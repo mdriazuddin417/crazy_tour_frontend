@@ -11,8 +11,9 @@ export const createListingSchema = z.object({
   maxGroupSize: z.number().positive("Group size must be at least 1"),
   meetingPoint: z.string().min(5, "Meeting point is required"),
   itinerary: z.array(z.string()).min(1, "Itinerary must have at least one point"),
-  images: z.array(z.string().url("Invalid image URL")).min(1, "At least one image is required"),
+  // images: z.array(z.string().url("Invalid image URL")).min(1, "At least one image is required"),
   languages: z.array(z.string()).min(1, "At least one language is required"),
+  guideId: z.string()
 })
 
 export const updateListingSchema = createListingSchema.partial()

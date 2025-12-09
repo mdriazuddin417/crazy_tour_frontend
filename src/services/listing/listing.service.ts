@@ -2,21 +2,16 @@
 "use server"
 import { serverFetch } from "@/lib/server-fetch"
 import {
-  createListingSchema,
   updateListingSchema,
-  type CreateListingInput,
-  type UpdateListingInput,
+  type UpdateListingInput
 } from "@/types/zod/listing.validation"
 
-export async function createListingService(data: CreateListingInput) {
+export async function createListingService(formData: FormData) {
   try {
-    const validated = createListingSchema.parse(data)
-
+    // FormData is already prepared with 'data' and 'files' fields
+    // Don't set Content-Type header - browser will set it with boundary for multipart/form-data
     const response = await serverFetch.post("/listing/create", {
-      body: JSON.stringify(validated),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: formData,
     })
 
     const result = await response.json()

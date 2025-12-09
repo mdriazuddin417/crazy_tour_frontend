@@ -27,7 +27,7 @@ const AdminTourListingManagementPage = async ({
   const totalPages = Math.ceil((meta.total || 1) / (meta.limit || 10));
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-6 p-4 md:p-6'>
       <ManagementPageHeader
         title='Tour Listings Management'
         description='Manage all tour listings and their details'

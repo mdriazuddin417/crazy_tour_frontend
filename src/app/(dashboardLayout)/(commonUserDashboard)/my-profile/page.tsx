@@ -210,7 +210,7 @@ const MyProfilePage = async () => {
   }
 
   return (
-    <main className='space-y-6'>
+    <main className='space-y-6 p-4 md:p-6'>
       <ProfileHeader user={user} />
 
       <div className='grid gap-6 lg:grid-cols-3'>

@@ -26,56 +26,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
         },
     ]
 
-    // return [
-    //     {
-    //         items: [
-    //             {
-    //                 title: "Dashboard",
-    //                 href: defaultDashboard,
-    //                 icon: "LayoutDashboard",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "Guides",
-    //                 href: `/dashboard/guide`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "All Tours",
-    //                 href: `/dashboard/listings`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "Add New Tour",
-    //                 href: `/dashboard/listings/new`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "All User",
-    //                 href: `/dashboard/admin/users-management`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "All Booking",
-    //                 href: `/dashboard/admin/booking-management`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
-    //             {
-    //                 title: "All Tour Listing",
-    //                 href: `/dashboard/admin/tourListing-management`,
-    //                 icon: "User",
-    //                 roles: [UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN],
-    //             },
 
-    //         ]
-    //     },
-
-    // ]
 }
 export const guideNavItems: NavSection[] = [
     {
@@ -84,8 +35,7 @@ export const guideNavItems: NavSection[] = [
             {
                 title: "Tour Listings",
                 href: "/guide/dashboard/listings",
-                icon: "Calendar", 
-                badge: "3",
+                icon: "Calendar",
                 roles: [UserRole.GUIDE],
             },
         ],
@@ -98,8 +48,7 @@ export const touristNavItems: NavSection[] = [
             {
                 title: "Tour Listings",
                 href: "/tourist/dashboard/bookings",
-                icon: "Calendar", 
-                badge: "3",
+                icon: "Calendar",
                 roles: [UserRole.TOURIST],
             },
         ],
@@ -130,7 +79,7 @@ export const adminNavItems: NavSection[] = [
             },
         ]
     },
-    
+
 ]
 
 
