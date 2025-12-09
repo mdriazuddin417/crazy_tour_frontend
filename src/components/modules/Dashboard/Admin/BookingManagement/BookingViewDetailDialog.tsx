@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { formatDateTime } from '@/lib/formatters';
-import { Booking, BookingStatus } from '@/lib/types';
+import { Booking, BookingStatus, IUser, Payment, TourListing } from '@/lib/types';
 
 import {
   Calendar,
@@ -103,7 +103,7 @@ const BookingViewDetailDialog = ({
                   value={
                     typeof booking?.tourListingId === 'string'
                       ? booking.tourListingId.slice(0, 8)
-                      : booking?.tourListingId?._id?.slice(0, 8) || 'N/A'
+                      : (booking?.tourListingId as Partial<TourListing>)?._id?.slice(0, 8) || 'N/A'
                   }
                 />
                 <InfoRow
@@ -111,7 +111,7 @@ const BookingViewDetailDialog = ({
                   value={
                     typeof booking?.touristId === 'string'
                       ? booking.touristId.slice(0, 8)
-                      : booking?.touristId?._id?.slice(0, 8) || 'N/A'
+                      : (booking?.touristId as Partial<IUser>)?._id?.slice(0, 8) || 'N/A'
                   }
                 />
                 <InfoRow
@@ -119,7 +119,7 @@ const BookingViewDetailDialog = ({
                   value={
                     typeof booking?.guideId === 'string'
                       ? booking.guideId.slice(0, 8)
-                      : booking?.guideId?._id?.slice(0, 8) || 'N/A'
+                      : ( booking?.guideId as Partial<IUser>)?._id?.slice(0, 8) || 'N/A'
                   }
                 />
               </div>
@@ -138,8 +138,8 @@ const BookingViewDetailDialog = ({
                   label='Tourist Name'
                   value={
                     typeof booking?.touristId === 'object' &&
-                    booking?.touristId?.name
-                      ? booking.touristId.name
+                    (booking?.touristId as Partial<IUser>)?.name
+                      ? (booking.touristId as Partial<IUser>).name
                       : typeof booking?.touristId === 'string'
                       ? booking.touristId.slice(0, 8)
                       : 'N/A'
@@ -149,8 +149,8 @@ const BookingViewDetailDialog = ({
                   label='Guide Name'
                   value={
                     typeof booking?.guideId === 'object' &&
-                    booking?.guideId?.name
-                      ? booking.guideId.name
+                    (booking?.guideId as Partial<IUser>)?.name
+                      ? (booking.guideId as Partial<IUser>).name
                       : typeof booking?.guideId === 'string'
                       ? booking.guideId.slice(0, 8)
                       : 'N/A'
@@ -213,7 +213,7 @@ const BookingViewDetailDialog = ({
                       value={
                         typeof booking.paymentId === 'string'
                           ? booking.paymentId.slice(0, 8)
-                          : booking.paymentId?.id?.slice(0, 8) || 'N/A'
+                          : (booking.paymentId as Partial<Payment>)?._id?.slice(0, 8) || 'N/A'
                       }
                     />
                   </div>

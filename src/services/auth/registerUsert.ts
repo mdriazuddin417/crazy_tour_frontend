@@ -34,31 +34,19 @@ export const registerUser = async (_currentState: any, formData: any): Promise<a
 
         }
 
-        // const newFormData = new FormData();
-
-        // newFormData.append("data", JSON.stringify(registerData));
-
-        // if (formData.get("file")) {
-        //     newFormData.append("file", formData.get("file") as Blob);
-        // }
-
         const res = await serverFetch.post("/user/register", {
             body: JSON.stringify(registerData),
             headers: {
                 "Content-Type": "application/json"
             }
         });
-
         const result = await res.json();
-
 
         if (result.success) {
             await loginUser(_currentState, formData);
         }
 
         return result;
-
-
 
     } catch (error: any) {
         // Re-throw NEXT_REDIRECT errors so Next.js can handle them

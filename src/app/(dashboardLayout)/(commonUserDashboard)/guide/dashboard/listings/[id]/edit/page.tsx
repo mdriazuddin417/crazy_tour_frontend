@@ -5,14 +5,13 @@ import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { useAuth } from "@/hooks/use-auth"
+
 import type { TourListing } from "@/lib/types"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function EditListingPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
-  const { user } = useAuth()
   const [id, setId] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)

@@ -1,9 +1,10 @@
+
 'use client';
 
 import { DateCell } from '@/components/shared/cell/DateCell';
 import { Column } from '@/components/shared/ManagementTable';
 import { Badge } from '@/components/ui/badge';
-import { Booking, BookingStatus } from '@/lib/types';
+import { Booking, BookingStatus, IUser, Payment, TourListing } from '@/lib/types';
 
 const getStatusBadge = (status: BookingStatus) => {
   const statusConfig = {
@@ -39,7 +40,7 @@ export const bookingColumns: Column<Booking>[] = [
     header: 'Title',
     accessor: (booking) => (
       <span className='text-sm font-mono'>
-        {booking?.tourListingId?.title || 'N/A'}
+        {(booking?.tourListingId as Partial<TourListing>)?.title || 'N/A'}
       </span>
     ),
     sortKey: '_id',
@@ -48,7 +49,7 @@ export const bookingColumns: Column<Booking>[] = [
     header: 'Tourist Name',
     accessor: (booking) => (
       <span className='text-sm font-mono'>
-        {booking?.touristId?.name || 'N/A'}
+        {(booking?.touristId as  Partial<IUser>)?.name || 'N/A'}
       </span>
     ),
     sortKey: 'touristId',
@@ -57,7 +58,7 @@ export const bookingColumns: Column<Booking>[] = [
     header: 'Guide Name',
     accessor: (booking) => (
       <span className='text-sm font-mono'>
-        {booking?.guideId?.name || 'N/A'}
+        {(booking?.guideId as Partial<IUser>)?.name || 'N/A'}
       </span>
     ),
     sortKey: 'guideId',
@@ -93,7 +94,7 @@ export const bookingColumns: Column<Booking>[] = [
     header: 'Payment Status',
     accessor: (booking) => (
       <span className='text-sm font-mono text-muted-foreground'>
-        {booking?.paymentId?.status || 'N/A'}
+        {(booking?.paymentId as Partial<Payment>)?.status || 'N/A'}
       </span>
     ),
   },

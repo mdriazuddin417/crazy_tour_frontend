@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 
 export default function NotFound() {
   const router = useRouter();
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-background to-muted/20">
         <div className="container flex flex-col items-center justify-center gap-8 px-4 text-center">
           <div className="scale-in">
@@ -61,6 +62,6 @@ export default function NotFound() {
           <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl glow-2" />
         </div>
       </div>
-    </>
+    </Suspense>
   );
 }

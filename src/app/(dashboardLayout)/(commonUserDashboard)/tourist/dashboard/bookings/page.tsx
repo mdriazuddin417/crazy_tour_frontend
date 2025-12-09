@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BookingFilter from '@/components/modules/Dashboard/Admin/BookingManagement/BookingFilter';
 import BookingTable from '@/components/modules/Dashboard/Admin/BookingManagement/BookingTable';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
@@ -22,7 +23,7 @@ const AdminBookingManagementPage = async ({
 
   // Handle different response structures
   const bookingsData = bookingsResult?.data?.data?.filter(
-    (listing: Booking) => listing?.touristId?._id === user?._id
+    (listing: Booking) => (listing?.touristId as any)?._id === user?._id
   );
 
   const meta = bookingsResult?.data?.meta || {

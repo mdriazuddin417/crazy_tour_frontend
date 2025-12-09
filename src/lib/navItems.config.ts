@@ -63,19 +63,19 @@ export const adminNavItems: NavSection[] = [
                 title: "Users Management",
                 href: "/admin/dashboard/users-management",
                 icon: "Shield", // ✅ String
-                roles: ["ADMIN"],
+                roles: [UserRole.ADMIN],
             },
             {
                 title: "Booking Management",
                 href: "/admin/dashboard/booking-management",
                 icon: "Shield", // ✅ String
-                roles: ["ADMIN"],
+               roles: [UserRole.ADMIN],
             },
             {
                 title: "Tour Listing Management",
                 href: "/admin/dashboard/tourListing-management",
                 icon: "Shield", // ✅ String
-                roles: ["ADMIN"],
+              roles: [UserRole.ADMIN],
             },
         ]
     },

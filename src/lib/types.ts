@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Core type definitions for the platform
 export enum UserRole {
   TOURIST = "TOURIST",
@@ -98,6 +99,7 @@ export interface Review {
 // Payment
 export interface Payment {
   id: string
+  _id: string
   bookingId: string
   amount: number
   status: "PENDING" | "COMPLETED" | "FAILED"
@@ -110,7 +112,7 @@ export interface Payment {
 // Auth Response
 export interface AuthResponse {
   token: string
-  user: User
+  user: IUser
 }
 
 // API Response Wrapper

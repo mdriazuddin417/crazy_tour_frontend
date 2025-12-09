@@ -1,4 +1,5 @@
 import ResetPasswordForm from "@/components/ResetPasswordForm";
+import { Suspense } from "react";
 
 const ResetPasswordPage = async ({
   searchParams,
@@ -8,6 +9,7 @@ const ResetPasswordPage = async ({
   const params = (await searchParams) || {};
   const redirect = params.redirect;
   return (
+     <Suspense fallback={<div>Loading...</div>}>
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md space-y-6 rounded-lg border p-8 shadow-lg">
         <div className="space-y-2 text-center">
@@ -19,6 +21,7 @@ const ResetPasswordPage = async ({
         <ResetPasswordForm redirect={redirect} />
       </div>
     </div>
+    </Suspense>
   );
 };
 

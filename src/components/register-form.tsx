@@ -1,5 +1,6 @@
 'use client';
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { UserRole } from '@/lib/types';
 import { registerUser } from '@/services/auth/registerUsert';
 import { useActionState, useEffect, useState } from 'react';

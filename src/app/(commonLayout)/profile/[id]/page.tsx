@@ -1,14 +1,14 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { type Review, type User, UserRole } from "@/lib/types"
+import { IUser, type Review, UserRole } from "@/lib/types"
 import { BadgeCheck, Star } from "lucide-react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
 export default function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState<string>("")
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
   const [reviews, setReviews] = useState<Review[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -73,7 +73,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
                   <div>
                     <p className="text-sm text-gray-600">Languages</p>
                     <div className="flex gap-2 mt-1">
-                      {user.languagesSpoken.map((lang) => (
+                      {user.languagesSpoken.map((lang : string) => (
                         <span key={lang} className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-sm">
                           {lang}
                         </span>
@@ -116,7 +116,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                {user.expertise.map((exp) => (
+                {user.expertise.map((exp : string) => (
                   <span key={exp} className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">
                     {exp}
                   </span>

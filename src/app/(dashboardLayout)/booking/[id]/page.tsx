@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { Booking, Payment, TourListing, User } from "@/lib/types"
+import type { Booking, IUser, Payment, TourListing, } from "@/lib/types"
 import { AlertCircle, Calendar, CheckCircle, MapPin, Users } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -13,7 +13,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
   const [id, setId] = useState<string>("")
   const [booking, setBooking] = useState<Booking | null>(null)
   const [listing, setListing] = useState<TourListing | null>(null)
-  const [guide, setGuide] = useState<User | null>(null)
+  const [guide, setGuide] = useState<IUser | null>(null)
   const [payment, setPayment] = useState<Payment | null>(null)
   const [loading, setLoading] = useState(true)
   const [paying, setPaying] = useState(false)
@@ -64,7 +64,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "create",
-          bookingId: booking.id,
+          bookingId: booking._id,
           amount: booking.totalPrice,
           paymentMethod: "card",
         }),
@@ -90,7 +90,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
         if (completeData.success) {
           // Refresh booking
-          const refreshRes = await fetch(`/api/bookings/${booking.id}`)
+          const refreshRes = await fetch(`/api/bookings/${booking._id}`)
           const refreshData = await refreshRes.json()
           if (refreshData.success) {
             setBooking(refreshData.data)
@@ -164,7 +164,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   <CardTitle>Your Guide</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Link href={`/profile/${guide.id}`} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link href={`/profile/${guide._id}`} className="flex items-center gap-3 hover:text-blue-600">
                     <div className="w-12 h-12 bg-gray-300 rounded-full" />
                     <div>
                       <p className="font-bold text-gray-900">{guide.name}</p>
@@ -250,7 +250,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                 </div>
 
                 <p className="text-xs text-gray-500 text-center">
-                  You'll receive a confirmation email with all details
+                  You&apos;ll receive a confirmation email with all details
                 </p>
               </CardContent>
             </Card>

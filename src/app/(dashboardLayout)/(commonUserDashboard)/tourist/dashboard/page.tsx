@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import BookingTable from '@/components/modules/Dashboard/Admin/BookingManagement/BookingTable';
@@ -30,7 +31,7 @@ export default function TouristDashboardPage() {
       if (bookingsRes.success && bookingsRes.data?.data) {
         // Filter bookings for current tourist
         const touristBookings = bookingsRes.data.data.filter(
-          (booking: Booking) => booking?.touristId?._id === userInfo?._id
+          (booking: Booking) => (booking?.touristId as any)?._id === userInfo?._id
         );
         // Fetch tour listing details for each booking
         const bookingsWithListings = await Promise.all(
