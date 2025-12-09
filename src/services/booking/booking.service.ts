@@ -35,7 +35,8 @@ export async function createBookingService(data: CreateBookingInput) {
 export async function getBookingsService(queryString?: string) {
   try {
     const response = await serverFetch.get(`/booking${queryString ? `?${queryString}` : ""}`)
-    const result = await response.json()
+    const result = await response.json();
+    console.log('result',result);
     return result
   } catch (error: any) {
     console.error("Error fetching bookings:", error)

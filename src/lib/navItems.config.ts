@@ -35,7 +35,7 @@ export const guideNavItems: NavSection[] = [
             {
                 title: "Tour Listings",
                 href: "/guide/dashboard/listings",
-                icon: "Calendar",
+                icon: "CarTaxiFront",
                 roles: [UserRole.GUIDE],
             },
         ],
@@ -46,9 +46,9 @@ export const touristNavItems: NavSection[] = [
         title: "Bookings Management",
         items: [
             {
-                title: "Tour Listings",
+                title: "My Bookings",
                 href: "/tourist/dashboard/bookings",
-                icon: "Calendar",
+                icon: "BookMarked", // ✅ String
                 roles: [UserRole.TOURIST],
             },
         ],
@@ -62,19 +62,19 @@ export const adminNavItems: NavSection[] = [
             {
                 title: "Users Management",
                 href: "/admin/dashboard/users-management",
-                icon: "Shield", // ✅ String
+                icon: "User", // ✅ String
                 roles: [UserRole.ADMIN],
             },
             {
                 title: "Booking Management",
                 href: "/admin/dashboard/booking-management",
-                icon: "Shield", // ✅ String
+                icon: "UserRoundCheck", // ✅ String
                roles: [UserRole.ADMIN],
             },
             {
                 title: "Tour Listing Management",
                 href: "/admin/dashboard/tourListing-management",
-                icon: "Shield", // ✅ String
+                icon: "MapMinus", // ✅ String
               roles: [UserRole.ADMIN],
             },
         ]

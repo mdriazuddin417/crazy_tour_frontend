@@ -1,6 +1,6 @@
 'use client';
 
-import TourListingTable from '@/components/modules/Dashboard/Admin/TourListingManagement/TourListingTable';
+import TourListingCard from '@/components/modules/Dashboard/GuidTours/TourListingCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookingStatus, type Booking, type TourListing } from '@/lib/types';
@@ -41,14 +41,18 @@ export default function GuideDashboardPage() {
         const guideListings = listingsRes.data.data.filter(
           (listing: TourListing) => listing.guideId === userInfo?._id
         );
+   
         setListings(guideListings);
       }
+
+      console.log('bookingsRes',bookingsRes);
 
       if (bookingsRes.success && bookingsRes.data?.data) {
         // Filter bookings for current guide
         const guideBookings = bookingsRes.data.data.filter(
           (booking: Booking) => booking.guideId === userInfo?._id
         );
+             console.log('bookingsRes.data.data',bookingsRes.data.data);
         setBookings(guideBookings);
       }
     } catch (error) {
@@ -335,9 +339,11 @@ export default function GuideDashboardPage() {
                 </Link>
               </div>
             ) : (
-              <div className='space-y-4'>
-                <TourListingTable listings={listings.slice(0, 4)} />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+            {listings?.slice(0,4).map((listing: TourListing) => (
+              <TourListingCard listing={listing} key={listing?._id} />
+            ))}
+          </div>
             )}
           </div>
         </div>

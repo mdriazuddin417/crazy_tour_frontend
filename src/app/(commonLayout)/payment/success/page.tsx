@@ -3,8 +3,10 @@
 import { AlertCircle, ArrowRight, BadgeCheck, Receipt } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+export const dynamic = 'force-dynamic';
 
-export default function PaymentSuccessPage() {
+const PaymentSuccessPage = () => {
   const params = useSearchParams();
 
   const transactionId = params.get('transactionId') || '---';
@@ -89,5 +91,13 @@ export default function PaymentSuccessPage() {
         }
       `}</style>
     </div>
+  );
+};
+
+export default function PaymentSuccess() {
+  return (
+    <Suspense fallback={<div className='p-6 text-center'>Loading...</div>}>
+      <PaymentSuccessPage />
+    </Suspense>
   );
 }

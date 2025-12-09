@@ -1,21 +1,21 @@
-import TourListingFilter from '@/components/modules/Dashboard/Admin/TourListingManagement/TourListingFilter';
-import TourListingTable from '@/components/modules/Dashboard/Admin/TourListingManagement/TourListingTable';
-import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
-import TablePagination from '@/components/shared/TablePagination';
-import { TableSkeleton } from '@/components/shared/TableSkeleton';
-import { queryStringFormatter } from '@/lib/formatters';
-import { IUser, TourListing } from '@/lib/types';
-import { getUserInfo } from '@/services/auth/getUserInfo';
-import { getListingsService } from '@/services/listing/listing.service';
+import TourListingCard from "@/components/modules/Dashboard/GuidTours/TourListingCard";
+import ManagementPageHeader from "@/components/shared/ManagementPageHeader";
+import { Button } from "@/components/ui/button";
+import { queryStringFormatter } from "@/lib/formatters";
+import { IUser, TourListing } from "@/lib/types";
+import { getUserInfo } from "@/services/auth/getUserInfo";
+import { getListingsService } from "@/services/listing/listing.service";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
-import { Suspense } from 'react';
 
-const AdminTourListingManagementPage = async ({
+const GuideTourListings = async ({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const userInfo = (await getUserInfo()) as IUser;
+
   const searchParamsObj = await searchParams;
   const queryString = queryStringFormatter(searchParamsObj);
   const listingsResult = await getListingsService(queryString);
@@ -25,32 +25,43 @@ const AdminTourListingManagementPage = async ({
     listingsResult?.data?.data.filter(
       (listing: TourListing) => listing.guideId === userInfo?._id
     ) || [];
-  const meta = listingsResult?.data?.meta || {
-    page: 1,
-    limit: 10,
-    total: listingsData.length,
-  };
-  const totalPages = Math.ceil((meta.total || 1) / (meta.limit || 10));
+
+    
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6 p-5">
       <ManagementPageHeader
-        title='Tour Listings Management'
-        description='Manage all tour listings and their details'
-      />
+        title="Tour Listings "
+        description="All tour listings and their details"
+      >
+        <Link href="/guide/dashboard/listings/new"> 
+          <Button className="gap-2">
+            <Plus className="w-4 h-4" />
+            Create Tour
+          </Button>
+        </Link>
+      </ManagementPageHeader>
 
-      {/* Search, Filters */}
-      <TourListingFilter />
-
-      <Suspense fallback={<TableSkeleton columns={14} rows={10} />}>
-        <TourListingTable listings={listingsData} />
-        <TablePagination
-          currentPage={meta.page || 1}
-          totalPages={totalPages || 1}
-        />
-      </Suspense>
+      <div>
+        {listingsData.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600 mb-4">
+              No tours found matching your criteria
+            </p>
+            <Link href="/guide/dashboard/listings/new">
+              <Button className="gap-2">Create New Tour</Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+            {listingsData.map((listing: TourListing) => (
+              <TourListingCard listing={listing} key={listing?._id} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default AdminTourListingManagementPage;
+export default GuideTourListings;

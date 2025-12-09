@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BookingFilter from '@/components/modules/Dashboard/Admin/BookingManagement/BookingFilter';
-import BookingTable from '@/components/modules/Dashboard/Admin/BookingManagement/BookingTable';
+import BookedTourCard from '@/components/modules/Dashboard/Tourist/BookedTourCard';
 import ManagementPageHeader from '@/components/shared/ManagementPageHeader';
-import TablePagination from '@/components/shared/TablePagination';
 import { TableSkeleton } from '@/components/shared/TableSkeleton';
 import { queryStringFormatter } from '@/lib/formatters';
 import { Booking } from '@/lib/types';
@@ -26,12 +24,7 @@ const AdminBookingManagementPage = async ({
     (listing: Booking) => (listing?.touristId as any)?._id === user?._id
   );
 
-  const meta = bookingsResult?.data?.meta || {
-    page: 1,
-    limit: 10,
-    total: bookingsData.length,
-  };
-  const totalPages = Math.ceil((meta.total || 1) / (meta.limit || 10));
+  console.log('bookingsData',bookingsData[0]);
 
   return (
     <div className='space-y-6 p-4 md:p-6'>
@@ -40,15 +33,14 @@ const AdminBookingManagementPage = async ({
         description='All my booked tours'
       />
 
-      {/* Search, Filters */}
-      <BookingFilter />
-
       <Suspense fallback={<TableSkeleton columns={12} rows={10} />}>
-        <BookingTable bookings={bookingsData} />
-        <TablePagination
-          currentPage={meta.page || 1}
-          totalPages={totalPages || 1}
-        />
+       <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
+         {
+          bookingsData?.map((booking: Booking) => (
+           <BookedTourCard key={booking._id} booking={booking} />
+          ))
+        }
+       </div>
       </Suspense>
     </div>
   );
