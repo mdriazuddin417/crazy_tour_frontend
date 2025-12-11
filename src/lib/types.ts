@@ -28,6 +28,7 @@ export enum TourCategory {
 // User Type
 export interface IUser {
   _id: string
+  id?: string
   email: string
   name: string
   profilePic?: string
@@ -86,14 +87,15 @@ export interface Booking {
 
 // Review
 export interface Review {
-  id: string
+  _id?: string
+  id?: string
   bookingId: string
   touristId: string
   guideId: string
   rating: number // 1-5
   comment: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 // Payment

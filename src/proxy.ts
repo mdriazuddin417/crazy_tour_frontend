@@ -64,12 +64,12 @@ export async function proxy(request: NextRequest) {
     }
 
     // Rule 1 & 2 for open public routes and auth routes
-
-    if (!accessToken) {
-        const loginUrl = new URL("/login", request.url);
-        loginUrl.searchParams.set("redirect", pathname);
-        return NextResponse.redirect(loginUrl);
-    }
+    // when I reset password show the issues
+    // if (!accessToken) {
+    //     const loginUrl = new URL("/login", request.url);
+    //     loginUrl.searchParams.set("redirect", pathname);
+    //     return NextResponse.redirect(loginUrl);
+    // }
 
     // Rule 3 : User need password change
 

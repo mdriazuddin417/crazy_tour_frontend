@@ -65,7 +65,9 @@ export async function getBookingByIdService(bookingId: string) {
 
 export async function updateBookingService(bookingId: string, data: UpdateBookingInput) {
   try {
-    const validated = updateBookingSchema.parse(data)
+    const validated = updateBookingSchema.parse(data);
+
+    console.log('validated',validated)
 
     const response = await serverFetch.patch(`/booking/${bookingId}`, {
       body: JSON.stringify(validated),
@@ -74,7 +76,8 @@ export async function updateBookingService(bookingId: string, data: UpdateBookin
       },
     })
 
-    const result = await response.json()
+    const result = await response.json();
+    console.log('result',result);
     return result
   } catch (error: any) {
     console.error("Error updating booking:", error)

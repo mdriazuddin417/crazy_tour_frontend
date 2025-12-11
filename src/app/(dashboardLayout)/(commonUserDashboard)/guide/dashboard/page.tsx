@@ -1,11 +1,10 @@
 'use client';
 
-import TourListingCard from '@/components/modules/Dashboard/GuidTours/TourListingCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookingStatus, type Booking, type TourListing } from '@/lib/types';
 import { getUserInfo } from '@/services/auth/getUserInfo';
-import { getBookingsService } from '@/services/booking/booking.service';
+import { getBookingsService, updateBookingService } from '@/services/booking/booking.service';
 import { getListingsService } from '@/services/listing/listing.service';
 import {
   Calendar,
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function GuideDashboardPage() {
   const [listings, setListings] = useState<TourListing[]>([]);
@@ -45,15 +45,11 @@ export default function GuideDashboardPage() {
         setListings(guideListings);
       }
 
-      console.log('bookingsRes',bookingsRes);
+      // console.log('bookingsRes',bookingsRes);
 
       if (bookingsRes.success && bookingsRes.data?.data) {
-        // Filter bookings for current guide
-        const guideBookings = bookingsRes.data.data.filter(
-          (booking: Booking) => booking.guideId === userInfo?._id
-        );
-             console.log('bookingsRes.data.data',bookingsRes.data.data);
-        setBookings(guideBookings);
+            //  console.log('bookingsRes.data.data',bookingsRes.data.data);
+        setBookings(bookingsRes.data.data);
       }
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
@@ -64,33 +60,39 @@ export default function GuideDashboardPage() {
 
   const handleAcceptBooking = async (bookingId: string) => {
     try {
-      const response = await fetch(`/api/bookings/${bookingId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: BookingStatus.CONFIRMED }),
-      });
+     const toastId= toast.loading('Accepting booking...');
+      const response = await updateBookingService(bookingId,{ status: BookingStatus.CONFIRMED })
 
-      if (response.ok) {
+      if (response.success) {
+        toast.success('Booking accepted successfully', {
+          id: toastId,
+        });
         await fetchData();
       }
     } catch (error) {
+       toast.error('Failed to accept booking!')
       console.error('Failed to accept booking:', error);
     }
   };
 
   const handleRejectBooking = async (bookingId: string) => {
-    try {
-      const response = await fetch(`/api/bookings/${bookingId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: BookingStatus.CANCELLED }),
-      });
+   try {
+     const toastId= toast.loading('Cancelling booking...');
+      const response = await updateBookingService(bookingId,{ status: BookingStatus.CANCELLED })
 
-      if (response.ok) {
+      if (response.success) {
+        toast.success('Booking cancelled successfully', {
+          id: toastId,
+        });
         await fetchData();
+      }else{
+        toast.error(response.message,{
+          id: toastId,
+        })
       }
     } catch (error) {
-      console.error('Failed to reject booking:', error);
+       toast.error('Failed to cancel booking!')
+      console.error('Failed to accept booking:', error);
     }
   };
 
@@ -322,30 +324,6 @@ export default function GuideDashboardPage() {
               </CardContent>
             </Card>
           )}
-
-          {/* My Tours */}
-
-          <div>
-            {listings.length === 0 ? (
-              <div className='text-center py-12'>
-                <p className='text-gray-600 mb-4'>
-                  No tours yet. Create your first tour to get started!
-                </p>
-                <Link href='/dashboard/listings/new'>
-                  <Button className='gap-2'>
-                    <Plus className='w-4 h-4' />
-                    Create Your First Tour
-                  </Button>
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-            {listings?.slice(0,4).map((listing: TourListing) => (
-              <TourListingCard listing={listing} key={listing?._id} />
-            ))}
-          </div>
-            )}
-          </div>
         </div>
       </div>
     </main>

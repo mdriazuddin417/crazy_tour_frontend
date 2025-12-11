@@ -6,8 +6,10 @@ import { zodValidator } from "@/lib/zodValidator";
 import { resetPasswordSchema } from "@/zod/auth.validation";
 import { parse } from "cookie";
 import { revalidateTag } from "next/cache";
-import { getUserInfo } from "./getUserInfo";
+
+import { redirect } from "next/navigation";
 import { deleteCookie, getCookie, setCookie } from "./tokenHandlers";
+
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function updateMyProfile(formData: FormData) {
@@ -41,7 +43,7 @@ export async function updateMyProfile(formData: FormData) {
         revalidateTag("user-info", { expire: 0 });
         return result;
     } catch (error: any) {
-        console.log(error);
+        // console.log(error);
         return {
             success: false,
             message: `${process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'}`
@@ -51,69 +53,50 @@ export async function updateMyProfile(formData: FormData) {
 
 // Reset Password
 export async function resetPassword(_prevState: any, formData: FormData) {
+    const token = _prevState.token
+    const id = _prevState.id
+    if (!token) {
+        return {
+            success: false,
+            message: "Invalid reset token",
+        };
+    }
 
-    const redirectTo = formData.get('redirect') || null;
-
-    // Build validation payload
-    const validationPayload = {
+    const payload = {
         newPassword: formData.get("newPassword") as string,
         confirmPassword: formData.get("confirmPassword") as string,
     };
 
-    // Validate
-    const validatedPayload = zodValidator(validationPayload, resetPasswordSchema);
+    const validated = zodValidator(payload, resetPasswordSchema);
 
-    if (!validatedPayload.success && validatedPayload.errors) {
+    if (!validated.success) {
         return {
             success: false,
-            message: "Validation failed",
-            formData: validationPayload,
-            errors: validatedPayload.errors,
+            errors: validated.errors,
         };
     }
 
-    try {
+    const response = await serverFetch.post("/auth/reset-password", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            newPassword: (validated.data as any).newPassword,
+            id
+        }),
+    });
 
-        const accessToken = await getCookie("accessToken");
+    const result = await response.json();
 
-        if (!accessToken) {
-            throw new Error("User not authenticated");
-        }
-        const user = await getUserInfo();
-        // API Call
-        const response = await serverFetch.post("/auth/reset-password", {
-            body: JSON.stringify({
-                id: user?.id,
-                password: validationPayload.newPassword,
-            }),
-            headers: {
-                "Authorization": accessToken,
-                "Content-Type": "application/json",
-            },
-        });
-
-        const result = await response.json();
-
-        if (!result.success) {
-            throw new Error(result.message || "Reset password failed");
-        }
-
-        if (result.success) {
-            // await get
-            revalidateTag("user-info", { expire: 0 });
-        }
-
-    } catch (error: any) {
-        // Re-throw NEXT_REDIRECT errors so Next.js can handle them
-        if (error?.digest?.startsWith("NEXT_REDIRECT")) {
-            throw error;
-        }
+    if (!result.success) {
         return {
             success: false,
-            message: error?.message || "Something went wrong",
-            formData: validationPayload,
+            message: result.message,
         };
     }
+
+    redirect("/login");
 }
 
 export async function getNewAccessToken() {
@@ -230,3 +213,51 @@ export async function getNewAccessToken() {
 
 }
 
+export const forgetPasswordAPI = async (state: { success: boolean; message: any } | null | undefined, formData: FormData) => {
+    try {
+        const response = await serverFetch.post("/auth/forgot-password", {
+            body: JSON.stringify({
+                email: formData.get('email') as string,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.message || "Reset password failed");
+        }
+
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error?.message || "Something went wrong",
+        };
+    }
+}
+export const changePasswordApi = async (body:{oldPassword: string, newPassword: string}) => {
+    try {
+        const response = await serverFetch.post("/auth/change-password", {
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const result = await response.json();
+        console.log('result',result);
+
+        if (!result.success) {
+            throw new Error(result.message || "change password failed");
+        }
+        return result;
+
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error?.message || "Something went wrong",
+        };
+    }
+}

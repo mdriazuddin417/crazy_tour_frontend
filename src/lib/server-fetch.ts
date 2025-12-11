@@ -12,6 +12,7 @@ const serverFetchHelper = async (endpoint: string, options: RequestInit): Promis
     if (endpoint !== "/auth/refresh-token") {
         await getNewAccessToken();
     }
+    console.log('headers token',headers);
     const response = await fetch(`${BACKEND_API_URL}${endpoint}`, {
         headers: {
             Cookie: accessToken ? `accessToken=${accessToken}` : "",

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server"
 import { serverFetch } from "@/lib/server-fetch"
-import { updateUserSchema, type UpdateUserInput } from "@/types/zod/user.validation"
 
 export async function getUserInfo() {
   try {
@@ -17,13 +16,28 @@ export async function getUserInfo() {
     }
   }
 }
-
-export async function updateUserService(userId: string, data: UpdateUserInput) {
+export async function getUserByIdService(userId: string) {
+  console.log('userId',userId);
   try {
-    const validated = updateUserSchema.parse(data)
+    const response = await serverFetch.get(`/user/${userId}`)
+    const result = await response.json();
+    console.log('result',result);
+    return result
+  } catch (error: any) {
+    console.error("Error fetching user:", error)
+    return {
+      success: false,
+      data: null,
+      message: process.env.NODE_ENV === "development" ? error.message : "Failed to fetch user",
+    }
+  }
+}
+
+export async function updateUserService(userId: string, data:any) {
+  try {
 
     const response = await serverFetch.patch(`/user/${userId}`, {
-      body: JSON.stringify(validated),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },

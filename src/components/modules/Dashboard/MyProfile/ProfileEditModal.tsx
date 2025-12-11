@@ -4,17 +4,19 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { IUser, TourCategory, UserRole } from '@/lib/types';
-import { Check, Edit, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { getUserInfo } from '@/services/auth/getUserInfo';
+import { updateUserService } from '@/services/user/user.service';
+import { Check, Edit, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { z } from 'zod';
 
@@ -86,7 +88,7 @@ export const ProfileEditModal = ({ user, onUpdateSuccess, children }: ProfileEdi
     });
 
     if (!parsed.success) {
-      setError(parsed.error.errors[0].message);
+      // setError(parsed.error.errors[0].message);
       setIsLoading(false);
       return;
     }
@@ -104,28 +106,26 @@ export const ProfileEditModal = ({ user, onUpdateSuccess, children }: ProfileEdi
       expertise: user.role === UserRole.GUIDE ? expertise?.map((cat) => TourCategory[cat as keyof typeof TourCategory]) : undefined,
     };
 
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(payload));
+    // const formData = new FormData();
+    // // formData.append('data', JSON.stringify(payload));
 
-    if (profilePic) {
-      if (!ACCEPTED_IMAGE_TYPES.includes(profilePic.type) || profilePic.size > MAX_FILE_SIZE) {
-        setError('Invalid image file. Max 500KB, formats: JPEG, PNG, WEBP.');
-        setIsLoading(false);
-        return;
-      }
-      formData.append('files', profilePic);
-    }
+    // if (profilePic) {
+    //   // if (!ACCEPTED_IMAGE_TYPES.includes(profilePic.type) || profilePic.size > MAX_FILE_SIZE) {
+    //   //   setError('Invalid image file. Max 500KB, formats: JPEG, PNG, WEBP.');
+    //   //   setIsLoading(false);
+    //   //   return;
+    //   // }
+    //   // formData.append('file', profilePic);
+    // }
 
     try {
-      const res = await fetch('/api/user/update', {
-        method: 'PUT',
-        body: formData,
-      });
+      const res = await updateUserService(user._id, payload);
 
-      if (!res.ok) {
+      if (!res.success) {
         const err = await res.json();
         throw new Error(err.message);
       }
+      await getUserInfo();
 
       setIsOpen(false);
       onUpdateSuccess();
@@ -183,7 +183,7 @@ export const ProfileEditModal = ({ user, onUpdateSuccess, children }: ProfileEdi
         </div>
 
         {/* PROFILE PIC */}
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium">Profile Picture</label>
           <Input
             type="file"
@@ -194,7 +194,7 @@ export const ProfileEditModal = ({ user, onUpdateSuccess, children }: ProfileEdi
             <ImageIcon className="h-4 w-4" />
             Max 500KB (JPG, PNG, WEBP)
           </div>
-        </div>
+        </div> */}
 
         {/* GUIDE FIELDS */}
         {user.role === UserRole.GUIDE && (

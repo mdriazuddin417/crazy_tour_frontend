@@ -122,7 +122,7 @@ export const loginUser = async (_currentState: any, formData: any): Promise<any>
         if (error?.digest?.startsWith('NEXT_REDIRECT')) {
             throw error;
         }
-        console.log(error);
+        // console.log(error);
         return { success: false, message: `${process.env.NODE_ENV === 'development' ? error.message : "Login Failed. You might have entered incorrect email or password."}` };
     }
 }

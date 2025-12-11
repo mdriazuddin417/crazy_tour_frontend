@@ -125,7 +125,7 @@ export default function CreateListingPage() {
   }, []);
 
   return (
-    <main className=' '>
+    <main className=' p-5'>
       <div className=''>
         <h1 className='text-3xl font-bold text-gray-900 mb-2'>
           Create New Tour

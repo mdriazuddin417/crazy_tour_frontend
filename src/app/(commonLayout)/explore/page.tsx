@@ -91,9 +91,9 @@ export default function ExplorePage() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 >
                   <option value=''>All Cities</option>
-                  {allcities?.map((city) => (
+                  {allcities?.map((city,index) => (
                     <option
-                      key={`${city?.city}-${city?.country}`}
+                      key={index}
                       value={city?.city}
                     >
                       {city.city}, {city?.country}

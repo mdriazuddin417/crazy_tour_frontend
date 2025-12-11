@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Mail, MapPin, MessageSquare, Phone } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,6 +52,7 @@ export default function ContactPage() {
         message: '',
       });
       setLoading(false);
+      toast.success('Form submitted successfully');
 
       // Reset success message after 5 seconds
       setTimeout(() => setSubmitted(false), 5000);

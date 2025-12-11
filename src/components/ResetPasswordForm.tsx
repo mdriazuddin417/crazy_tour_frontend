@@ -11,11 +11,25 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { resetPassword } from "@/services/auth/auth.service";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ResetPasswordForm = ({ redirect }: { redirect?: string }) => {
-  const [state, formAction, isPending] = useActionState(resetPassword, null);
+    // Read token and id from URL on initial render
+    const [urlDetails] = useState<any>(() => {
+        if (typeof window !== "undefined") {
+            const token = new URLSearchParams(window.location.search).get("token");
+            const id = new URLSearchParams(window.location.search).get("id");
+            return { token, id };
+        }
+        return { token: null, id: null };
+    });
+
+
+  const [state, formAction, isPending] = useActionState(
+    (prevValues:any, formData: FormData) => resetPassword({...prevValues,token:urlDetails.token,id:urlDetails.id}, formData),
+    null
+  );
 
   useEffect(() => {
     if (state && !state.success && state.message) {
