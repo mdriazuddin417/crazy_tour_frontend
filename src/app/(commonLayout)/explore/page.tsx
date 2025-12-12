@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -54,18 +55,40 @@ export default function ExplorePage() {
   };
 
   const fetchListingsCities = async () => {
-    try {
-      setLoading(true);
-      const response = await getListingsService('fields=city,country');
-      if (response.success) {
-        setAllcities(response?.data?.data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch listings:', error);
-    } finally {
-      setLoading(false);
+  try {
+    setLoading(true);
+    const response = await getListingsService('fields=city,country');
+    
+    if (response.success && response?.data?.data) {
+      const cityData = response.data.data;
+
+      // 1. Create a Set to track unique city-country combinations
+      const uniqueCities = new Set();
+      
+      // 2. Map and filter the original data
+      const uniqueCityList = cityData.reduce((acc: any[], currentCity:any) => {
+        // Create a unique key (e.g., "Paris-France")
+        const key = `${currentCity.city}-${currentCity.country}`;
+        
+        // Check if the key is already in the Set
+        if (!uniqueCities.has(key)) {
+          // If not, add the key to the Set
+          uniqueCities.add(key);
+          // And add the city object to the accumulator array
+          acc.push(currentCity);
+        }
+        return acc;
+      }, []); // Initialize accumulator as an empty array
+
+      // 3. Set the state with the unique list
+      setAllcities(uniqueCityList);
     }
-  };
+  } catch (error) {
+    console.error('Failed to fetch listings:', error);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     fetchListingsCities();
   }, []);
