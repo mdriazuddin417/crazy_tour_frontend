@@ -4,10 +4,9 @@
 import BookedTourCard from "@/components/modules/Dashboard/Tourist/BookedTourCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { type Booking, type TourListing } from "@/lib/types";
+import { BookingStatus, type Booking, type TourListing } from "@/lib/types";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getBookingsService } from "@/services/booking/booking.service";
-import { getListingByIdService } from "@/services/listing/listing.service";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -27,6 +26,7 @@ export default function TouristDashboardPage() {
       const userInfo = await getUserInfo();
 
       const bookingsRes = await getBookingsService();
+      console.log('bookingsRes',bookingsRes);
 
       if (bookingsRes.success && bookingsRes.data?.data) {
         // Filter bookings for current tourist
@@ -34,31 +34,32 @@ export default function TouristDashboardPage() {
           (booking: Booking) =>
             (booking?.touristId as any)?._id === userInfo?._id
         );
+        console.log('touristBookings',touristBookings);
         // Fetch tour listing details for each booking
-        const bookingsWithListings = await Promise.all(
-          touristBookings.map(async (booking: Booking) => {
-            try {
-              const listingRes = await getListingByIdService(
-                booking.tourListingId
-              );
-              if (listingRes.success && listingRes.data) {
-                return {
-                  ...booking,
-                  tourListingId: listingRes.data,
-                };
-              }
-              return booking;
-            } catch (error) {
-              console.error(
-                `Failed to fetch listing for booking ${booking._id}:`,
-                error
-              );
-              return booking;
-            }
-          })
-        );
+        // const bookingsWithListings = await Promise.all(
+        //   touristBookings.map(async (booking: Booking) => {
+        //     try {
+        //       const listingRes = await getListingByIdService(
+        //         booking.tourListingId
+        //       );
+        //       if (listingRes.success && listingRes.data) {
+        //         return {
+        //           ...booking,
+        //           tourListingId: listingRes.data,
+        //         };
+        //       }
+        //       return booking;
+        //     } catch (error) {
+        //       console.error(
+        //         `Failed to fetch listing for booking ${booking._id}:`,
+        //         error
+        //       );
+        //       return booking;
+        //     }
+        //   })
+        // );
 
-        setBookings(bookingsWithListings);
+        setBookings(touristBookings);
       }
     } catch (error) {
       console.error("Failed to fetch user and bookings:", error);
@@ -67,18 +68,13 @@ export default function TouristDashboardPage() {
     }
   };
 
-  const now = new Date();
-  const filteredBookings = bookings.filter((booking) => {
-    const bookingDate = new Date(booking.requestedDate);
-    const isUpcoming = bookingDate > now;
-    return activeTab === "upcoming" ? isUpcoming : !isUpcoming;
-  });
 
+  const filteredBookings = bookings
   // Calculate stats
-  const upcomingCount = bookings.filter((b) => b.status == "PENDING").length;
-  const pastCount = bookings.filter((b) => b.status == "COMPLETED").length;
+  const upcomingCount = bookings.filter((b) => b.status == BookingStatus.PENDING).length;
+  const pastCount = bookings.filter((b) => b.status == BookingStatus.COMPLETED).length;
   const totalSpent = bookings
-    .filter((b) => b.status == "COMPLETED")
+    .filter((b) => b.status ==BookingStatus.COMPLETED)
     .reduce((sum, b) => sum + b.totalPrice, 0);
 
   return (
@@ -97,10 +93,10 @@ export default function TouristDashboardPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-sm font-medium text-gray-600 mb-1">
-                Upcoming Tours
+                Confirm Tours
               </div>
               <div className="text-3xl font-bold text-gray-900">
-                {upcomingCount}
+                {filteredBookings.filter((b) =>  b.status == BookingStatus.CONFIRMED).length}
               </div>
             </CardContent>
           </Card>
