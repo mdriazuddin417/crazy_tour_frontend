@@ -1,70 +1,81 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
-import type { TourListing } from "@/lib/types"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import type { IUser, TourListing } from "@/lib/types";
+import {
+  getListingByIdService,
+  updateListingService,
+} from "@/services/listing/listing.service";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-export default function EditListingPage({ params }: { params: Promise<{ id: string }> }) {
-  const router = useRouter()
-  const [id, setId] = useState<string>("")
-  const [loading, setLoading] = useState(true)
-  const [submitting, setSubmitting] = useState(false)
-  const [formData, setFormData] = useState<Partial<TourListing>>({})
+export default function EditListingPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const router = useRouter();
+  const [id, setId] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = useState<Partial<TourListing>>({});
 
   useEffect(() => {
-    ;(async () => {
-      const { id: paramId } = await params
-      setId(paramId)
+    (async () => {
+      const { id: paramId } = await params;
+      setId(paramId);
 
       try {
-        const response = await fetch(`/api/listings/${paramId}`)
-        const data = await response.json()
+        const data = await getListingByIdService(paramId);
 
         if (data.success) {
-          setFormData(data.data)
+          setFormData(data.data);
         }
       } catch (error) {
-        console.error("Failed to fetch listing:", error)
+        console.error("Failed to fetch listing:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    })()
-  }, [params])
+    })();
+  }, [params]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitting(true)
+    e.preventDefault();
+    setSubmitting(true);
+    const body = {
+      ...formData,
+      guideId: (formData?.guideId as Partial<IUser>)._id,
+    };
 
     try {
-      const response = await fetch(`/api/listings/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
+      const data = await updateListingService(id, body);
+      console.log("data", data);
 
       if (data.success) {
-        router.push("/dashboard/listings")
+        router.push("/guide/dashboard/listings");
       } else {
-        alert("Failed to update listing: " + data.error)
+        toast.error("Failed to update listing");
       }
     } catch (error) {
-      console.error("Failed to update listing:", error)
-      alert("Error updating listing")
+      console.error("Failed to update listing:", error);
+      toast.error("Error updating listing");
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -77,20 +88,28 @@ export default function EditListingPage({ params }: { params: Promise<{ id: stri
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Tour Title</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">
+                  Tour Title
+                </label>
                 <Input
                   type="text"
                   value={formData.title || ""}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Description</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">
+                  Description
+                </label>
                 <textarea
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows={4}
                   required
@@ -99,13 +118,22 @@ export default function EditListingPage({ params }: { params: Promise<{ id: stri
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2">Price per Person</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Price per Person
+                  </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-2.5 text-gray-600">$</span>
+                    <span className="absolute left-3 top-2.5 text-gray-600">
+                      $
+                    </span>
                     <Input
                       type="number"
                       value={formData.price || ""}
-                      onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          price: Number(e.target.value),
+                        })
+                      }
                       className="pl-8"
                       required
                     />
@@ -113,32 +141,50 @@ export default function EditListingPage({ params }: { params: Promise<{ id: stri
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2">Duration (hours)</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Duration (hours)
+                  </label>
                   <Input
                     type="number"
                     value={formData.duration || ""}
-                    onChange={(e) => setFormData({ ...formData, duration: Number(e.target.value) })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        duration: Number(e.target.value),
+                      })
+                    }
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Max Group Size</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">
+                  Max Group Size
+                </label>
                 <Input
                   type="number"
                   value={formData.maxGroupSize || ""}
-                  onChange={(e) => setFormData({ ...formData, maxGroupSize: Number(e.target.value) })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      maxGroupSize: Number(e.target.value),
+                    })
+                  }
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Meeting Point</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">
+                  Meeting Point
+                </label>
                 <Input
                   type="text"
                   value={formData.meetingPoint || ""}
-                  onChange={(e) => setFormData({ ...formData, meetingPoint: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, meetingPoint: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -149,20 +195,33 @@ export default function EditListingPage({ params }: { params: Promise<{ id: stri
                     type="checkbox"
                     id="active"
                     checked={formData.isActive || false}
-                    onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isActive: e.target.checked })
+                    }
                     className="w-4 h-4 rounded border-gray-300"
                   />
-                  <label htmlFor="active" className="text-sm font-medium text-gray-900">
+                  <label
+                    htmlFor="active"
+                    className="text-sm font-medium text-gray-900"
+                  >
                     Tour is Active
                   </label>
                 </div>
               </div>
 
               <div className="flex gap-3 pt-6 border-t">
-                <Button type="submit" disabled={submitting} className="bg-blue-600 hover:bg-blue-700">
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
                   {submitting ? "Saving..." : "Save Changes"}
                 </Button>
-                <Button type="button" variant="outline" onClick={() => router.back()}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.back()}
+                >
                   Cancel
                 </Button>
               </div>
@@ -171,5 +230,5 @@ export default function EditListingPage({ params }: { params: Promise<{ id: stri
         </Card>
       </div>
     </main>
-  )
+  );
 }

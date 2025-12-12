@@ -32,7 +32,7 @@ const TourListingCard = ({ listing }: { listing: TourListing }) => {
 
   return (
     <div className=" bg-white rounded-xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition duration-500 ease-in-out relative">
-       <Link href={`/guide/dashboard/listings/${_id}`} className="absolute right-2 top-2 z-50"> 
+       <Link href={`/guide/dashboard/listings/${_id}/edit`} className="absolute right-2 top-2 z-50"> 
           <Button className="gap-2" variant="outline" size={'sm'}> 
             <Edit className="w-4 h-4" />
           </Button>

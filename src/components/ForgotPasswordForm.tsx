@@ -20,7 +20,10 @@ const ForgotPasswordForm = ({ redirect }: { redirect?: string }) => {
     if (state && !state.success && state.message) {
       toast.error(state.message);
     }
-      toast.success('Please check your email for password reset link');
+    if(state && state.success){
+      toast.success("Please check your email for password reset instructions");
+    }
+
   }, [state]);
 
   return (

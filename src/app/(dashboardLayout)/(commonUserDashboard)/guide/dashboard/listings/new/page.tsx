@@ -65,6 +65,7 @@ export default function CreateListingPage() {
       });
 
       const data = await createListingService(newFormData);
+      console.log('data', data);
 
       if (data.success) {
         router.push('/guide/dashboard/listings');
@@ -72,8 +73,9 @@ export default function CreateListingPage() {
         toast.error('Try again');
       }
     } catch (error) {
-      console.error('Failed to create listing:', error);
-      alert('Error creating listing');
+      // console.error('Failed to create listing:', error);
+      // alert('Error creating listing');
+      toast.error('Please reduce image size max 500KB');
     } finally {
       setLoading(false);
     }
