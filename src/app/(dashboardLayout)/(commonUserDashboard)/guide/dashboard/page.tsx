@@ -100,7 +100,7 @@ export default function GuideDashboardPage() {
     return (
       <div className='min-h-screen flex items-center justify-center'>
         <div className='text-center'>
-          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4'></div>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4'></div>
           <p className='text-gray-600'>Loading dashboard...</p>
         </div>
       </div>
@@ -150,7 +150,7 @@ export default function GuideDashboardPage() {
               <CardTitle className='text-sm font-medium text-gray-600'>
                 Active Tours
               </CardTitle>
-              <TrendingUp className='h-4 w-4 text-blue-600' />
+              <TrendingUp className='h-4 w-4 text-teal-600' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold text-gray-900'>
@@ -252,7 +252,7 @@ export default function GuideDashboardPage() {
                             )}
                           </div>
                         </div>
-                        <span className='font-bold text-blue-600 text-lg'>
+                        <span className='font-bold text-teal-600 text-lg'>
                           ${booking.totalPrice.toFixed(2)}
                         </span>
                       </div>

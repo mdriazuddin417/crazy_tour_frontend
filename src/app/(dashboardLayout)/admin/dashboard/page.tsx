@@ -126,7 +126,7 @@ const AdminDashboard = () => {
               <CardTitle className="text-sm font-medium text-slate-400">
                 Total Revenue
               </CardTitle>
-              <Wallet className="h-5 w-5 text-blue-500" />
+              <Wallet className="h-5 w-5 text-teal-500" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-white">

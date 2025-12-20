@@ -99,7 +99,7 @@ const TourListingCard = ({ listing }: { listing: TourListing }) => {
             <p className="text-xl font-extrabold text-green-600">{formattedPrice}</p>
           </div>
           <Link href={`/tours/${_id}`}>
-          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300">
+          <button className="px-4 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition duration-300">
             View Details
           </button>
           </Link>

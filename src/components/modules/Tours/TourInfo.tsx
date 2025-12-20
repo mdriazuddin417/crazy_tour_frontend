@@ -28,11 +28,11 @@ const TourInfo = ({ listing }: { listing: Partial<TourListing> }) => {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
+                    <Clock className="w-5 h-5 text-teal-600" />
                     <span>{listing.duration} hours</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-blue-600" />
+                    <Users className="w-5 h-5 text-teal-600" />
                     <span>Max {listing.maxGroupSize} people</span>
                   </div>
                 </div>

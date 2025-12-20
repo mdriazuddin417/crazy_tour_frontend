@@ -13,14 +13,14 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className='min-h-screen bg-linear-to-b from-blue-50 to-white'>
+    <main className='min-h-screen bg-linear-to-b from-teal-50 to-white'>
       {/* Hero Section */}
       <section className='relative px-4 py-20 sm:py-28 overflow-hidden'>
-        <div className='absolute inset-0 bg-linear-to-r from-blue-600/10 to-purple-600/10' />
+        <div className='absolute inset-0 bg-linear-to-r from-teal-600/10 to-purple-600/10' />
         <div className='max-w-6xl mx-auto relative z-10'>
           <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 text-center'>
             Our Story:{' '}
-            <span className='text-blue-600'>Authentic Travel Experiences</span>
+            <span className='text-teal-600'>Authentic Travel Experiences</span>
           </h1>
           <p className='text-lg text-gray-600 text-center max-w-2xl mx-auto'>
             We believe travel should be more than just visiting landmarks.
@@ -104,10 +104,10 @@ export default function AboutPage() {
             ].map((value) => (
               <Card
                 key={value.title}
-                className='text-center border-blue-100 hover:border-blue-300 transition'
+                className='text-center border-teal-100 hover:border-teal-300 transition'
               >
                 <CardContent className='pt-8'>
-                  <div className='flex justify-center mb-4 text-blue-600'>
+                  <div className='flex justify-center mb-4 text-teal-600'>
                     {value.icon}
                   </div>
                   <h3 className='font-bold text-lg mb-2 text-gray-900'>
@@ -122,7 +122,7 @@ export default function AboutPage() {
       </section>
 
       {/* By The Numbers */}
-      <section className='px-4 py-16 bg-blue-600 text-white'>
+      <section className='px-4 py-16 bg-teal-600 text-white'>
         <div className='max-w-6xl mx-auto'>
           <h2 className='text-3xl font-bold mb-12 text-center'>Our Impact</h2>
 
@@ -135,7 +135,7 @@ export default function AboutPage() {
             ].map((stat) => (
               <div key={stat.label} className='text-center'>
                 <div className='text-4xl font-bold mb-2'>{stat.number}</div>
-                <p className='text-blue-100'>{stat.label}</p>
+                <p className='text-teal-100'>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -169,11 +169,11 @@ export default function AboutPage() {
             ].map((member) => (
               <Card key={member.name} className='text-center'>
                 <CardContent className='p-6'>
-                  <div className='w-20 h-20 rounded-full bg-linear-to-br from-blue-400 to-blue-600 mx-auto mb-4' />
+                  <div className='w-20 h-20 rounded-full bg-linear-to-br from-teal-400 to-teal-600 mx-auto mb-4' />
                   <h3 className='font-bold text-lg text-gray-900'>
                     {member.name}
                   </h3>
-                  <p className='text-blue-600 font-medium mb-3'>
+                  <p className='text-teal-600 font-medium mb-3'>
                     {member.role}
                   </p>
                   <p className='text-sm text-gray-600'>{member.desc}</p>
@@ -197,7 +197,7 @@ export default function AboutPage() {
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <Link href='/register?role=tourist'>
-              <Button size='lg' className='bg-blue-600 hover:bg-blue-700 px-8'>
+              <Button size='lg' className='bg-teal-600 hover:bg-teal-700 px-8'>
                 Start Exploring
               </Button>
             </Link>

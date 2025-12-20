@@ -38,7 +38,7 @@ const getStatusBadge = (status: BookingStatus) => {
     },
     [BookingStatus.COMPLETED]: {
       variant: 'secondary' as const,
-      className: 'bg-blue-50 text-blue-700 border-blue-200',
+      className: 'bg-teal-50 text-teal-700 border-teal-200',
     },
     [BookingStatus.CANCELLED]: {
       variant: 'destructive' as const,
@@ -130,7 +130,7 @@ const BookingViewDetailDialog = ({
             {/* Participants Information */}
             <div>
               <div className='flex items-center gap-2 mb-4'>
-                <User className='h-5 w-5 text-blue-600' />
+                <User className='h-5 w-5 text-teal-600' />
                 <h3 className='font-semibold text-lg'>Participants</h3>
               </div>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/50 p-4 rounded-lg'>

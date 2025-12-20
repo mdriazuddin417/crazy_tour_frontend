@@ -110,7 +110,7 @@ export default function EditListingPage({
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                   rows={4}
                   required
                 />
@@ -213,7 +213,7 @@ export default function EditListingPage({
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-teal-600 hover:bg-teal-700"
                 >
                   {submitting ? "Saving..." : "Save Changes"}
                 </Button>

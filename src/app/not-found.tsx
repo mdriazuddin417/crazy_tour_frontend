@@ -59,7 +59,7 @@ export default function NotFound() {
           </div>
           {/* Decorative Elements */}
           <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl glow-1" />
-          <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl glow-2" />
+          <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-teal-500/5 blur-3xl glow-2" />
         </div>
       </div>
     </Suspense>

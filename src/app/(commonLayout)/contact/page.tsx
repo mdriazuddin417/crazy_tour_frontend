@@ -60,13 +60,13 @@ export default function ContactPage() {
   };
 
   return (
-    <main className='min-h-screen bg-linear-to-b from-blue-50 to-white'>
+    <main className='min-h-screen bg-linear-to-b from-teal-50 to-white'>
       {/* Hero Section */}
       <section className='relative px-4 py-20 sm:py-28 overflow-hidden'>
-        <div className='absolute inset-0 bg-linear-to-r from-blue-600/10 to-purple-600/10' />
+        <div className='absolute inset-0 bg-linear-to-r from-teal-600/10 to-purple-600/10' />
         <div className='max-w-6xl mx-auto relative z-10 text-center'>
           <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6'>
-            Get in <span className='text-blue-600'>Touch</span>
+            Get in <span className='text-teal-600'>Touch</span>
           </h1>
           <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
             Have questions about LocalGuide? We&apos;d love to hear from you.
@@ -101,10 +101,10 @@ export default function ContactPage() {
             ].map((item) => (
               <Card
                 key={item.title}
-                className='text-center border-blue-100 hover:border-blue-300 transition'
+                className='text-center border-teal-100 hover:border-teal-300 transition'
               >
                 <CardContent className='pt-8'>
-                  <div className='flex justify-center mb-4 text-blue-600'>
+                  <div className='flex justify-center mb-4 text-teal-600'>
                     {item.icon}
                   </div>
                   <h3 className='font-bold text-lg text-gray-900 mb-1'>
@@ -119,10 +119,10 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className='max-w-2xl mx-auto'>
-            <Card className='border-blue-100'>
+            <Card className='border-teal-100'>
               <CardHeader>
                 <CardTitle className='flex items-center gap-2'>
-                  <MessageSquare className='w-5 h-5 text-blue-600' />
+                  <MessageSquare className='w-5 h-5 text-teal-600' />
                   Send us a Message
                 </CardTitle>
                 <CardDescription>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder='John Doe'
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition'
                       />
                     </div>
                     <div>
@@ -177,7 +177,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder='john@example.com'
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition'
                       />
                     </div>
                   </div>
@@ -199,7 +199,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         placeholder='How can we help?'
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition'
                       />
                     </div>
                     <div>
@@ -214,7 +214,7 @@ export default function ContactPage() {
                         name='category'
                         value={formData.category}
                         onChange={handleChange}
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white'
+                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition bg-white'
                       >
                         <option value='general'>General Inquiry</option>
                         <option value='support'>Support</option>
@@ -241,7 +241,7 @@ export default function ContactPage() {
                       required
                       placeholder="Tell us what's on your mind..."
                       rows={6}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none'
+                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition resize-none'
                     />
                   </div>
 
@@ -249,7 +249,7 @@ export default function ContactPage() {
                   <Button
                     type='submit'
                     disabled={loading}
-                    className='w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition'
+                    className='w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 rounded-lg transition'
                   >
                     {loading ? 'Sending...' : 'Send Message'}
                   </Button>

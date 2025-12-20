@@ -111,7 +111,7 @@ export default function ExplorePage() {
                   onChange={(e) =>
                     setFilters({ ...filters, city: e.target.value })
                   }
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                 >
                   <option value=''>All Cities</option>
                   {allcities?.map((city,index) => (
@@ -134,7 +134,7 @@ export default function ExplorePage() {
                   onChange={(e) =>
                     setFilters({ ...filters, category: e.target.value })
                   }
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                 >
                   <option value=''>All Categories</option>
                   {Object.entries(TOUR_CATEGORIES).map(([key, value]) => (
@@ -255,7 +255,7 @@ export default function ExplorePage() {
                         </div>
 
                         <div className='flex items-center justify-between pt-2 border-t'>
-                          <span className='font-bold text-blue-600 text-lg'>
+                          <span className='font-bold text-teal-600 text-lg'>
                             ${listing.price}
                           </span>
                           <span className='text-xs text-gray-500 flex items-center gap-1'>

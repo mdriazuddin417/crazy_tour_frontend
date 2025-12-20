@@ -76,9 +76,9 @@ const BookingWidget = ({
           </CardHeader>
           <CardContent className='space-y-4'>
             {userInfo?.role !== 'TOURIST' ? (
-              <div className='p-3 bg-blue-50 border border-blue-200 rounded-lg flex gap-2'>
-                <AlertCircle className='w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5' />
-                <div className='text-sm text-blue-700'>
+              <div className='p-3 bg-teal-50 border border-teal-200 rounded-lg flex gap-2'>
+                <AlertCircle className='w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5' />
+                <div className='text-sm text-teal-700'>
                   <Link
                     href={`/login?redirect=/tours/${listing._id}`}
                     className='font-bold hover:underline'
@@ -99,7 +99,7 @@ const BookingWidget = ({
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
                     min={new Date().toISOString().split('T')[0]}
-                    className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                   />
                 </div>
 
@@ -141,7 +141,7 @@ const BookingWidget = ({
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder='Any special requests or questions...'
-                    className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm'
+                    className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm'
                     rows={3}
                   />
                 </div>
@@ -155,14 +155,14 @@ const BookingWidget = ({
                   </div>
                   <div className='flex justify-between font-bold text-lg'>
                     <span>Total:</span>
-                    <span className='text-blue-600'>${totalPrice}</span>
+                    <span className='text-teal-600'>${totalPrice}</span>
                   </div>
                 </div>
 
                 <Button
                   onClick={handleBooking}
                   disabled={isBooking || !bookingDate}
-                  className='w-full bg-blue-600 hover:bg-blue-700'
+                  className='w-full bg-teal-600 hover:bg-teal-700'
                 >
                   {isBooking ? 'Booking...' : 'Request to Book'}
                 </Button>

@@ -2,14 +2,16 @@ import { IUser } from "@/lib/types";
 import { getUserInfo } from "@/services/auth/getUserInfo";
 import { getCookie } from "@/services/auth/tokenHandlers";
 import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import logo from '../../assets/images/crazy_tour_logo.png';
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import LogoutButton from "./LogoutButton";
 
 const PublicNavbar = async () => {
   const userInfo = (await getUserInfo()) as IUser;
-  
+
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/explore", label: "Tour Explorer" },
@@ -30,13 +32,13 @@ const PublicNavbar = async () => {
   const accessToken = await getCookie("accessToken");
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur  dark:bg-background/95">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-50 w-full   backdrop-blur   overflow-hidden">
+      <div className="container mx-auto flex h-24 items-center justify-between px-4 ">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">Crazy Tour</span>
+          <Image src={logo} alt="Logo" width={200} className="ml-[-17px]"/>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center space-x-6 text-xl font-medium">
           {navItems.map((link) => (
             <Link
               key={link.label}
@@ -53,7 +55,7 @@ const PublicNavbar = async () => {
             <LogoutButton />
           ) : (
             <Link href="/login">
-              <Button>Login</Button>
+              <Button size={'lg'} className="text-xl h-[50px] w-[130px]">Login</Button>
             </Link>
           )}
         </div>
@@ -83,7 +85,7 @@ const PublicNavbar = async () => {
                 <div className="border-t pt-4 flex flex-col space-y-4">
                   <div className="flex justify-center"></div>
                   <Link href="/login" className="text-lg font-medium">
-                    <Button>Login</Button>
+                    <Button size={'lg'}>Login</Button>
                   </Link>
                 </div>
               </nav>

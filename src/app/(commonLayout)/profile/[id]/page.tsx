@@ -104,7 +104,7 @@ export default function ProfilePage({
                       {user.languagesSpoken.map((lang: string) => (
                         <span
                           key={lang}
-                          className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-sm"
+                          className="px-2 py-1 bg-teal-50 text-teal-700 rounded text-sm"
                         >
                           {lang}
                         </span>

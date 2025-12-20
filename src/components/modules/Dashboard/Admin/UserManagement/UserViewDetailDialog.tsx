@@ -45,7 +45,7 @@ const UserViewDetailDialog = ({
 
         <div className='flex-1 overflow-y-auto px-6 pb-6'>
           {/* User Profile Header */}
-          <div className='flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 rounded-lg mb-6'>
+          <div className='flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-gradient-to-br from-teal-50 to-indigo-50 dark:from-teal-950 dark:to-indigo-950 rounded-lg mb-6'>
             <Avatar className='h-24 w-24 border-4 border-white shadow-lg'>
               <AvatarImage src={user?.profilePic || ''} alt={user?.name} />
               <AvatarFallback className='text-2xl'>
@@ -121,7 +121,7 @@ const UserViewDetailDialog = ({
               <>
                 <div>
                   <div className='flex items-center gap-2 mb-4'>
-                    <Languages className='h-5 w-5 text-blue-600' />
+                    <Languages className='h-5 w-5 text-teal-600' />
                     <h3 className='font-semibold text-lg'>Languages Spoken</h3>
                   </div>
                   <div className='flex flex-wrap gap-2 bg-muted/50 p-4 rounded-lg'>

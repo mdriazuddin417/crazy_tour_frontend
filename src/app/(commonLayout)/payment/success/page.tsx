@@ -17,7 +17,7 @@ const PaymentSuccessPage = () => {
   const isSuccess = status === 'success';
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 px-4 py-10'>
+    <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-teal-50 px-4 py-10'>
       {/* Card */}
       <div className='bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full text-center'>
         {/* Icon */}

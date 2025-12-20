@@ -24,7 +24,7 @@ const AllBookedTour = ({
       case BookingStatus.PENDING:
         return "bg-yellow-100 text-yellow-800";
       case BookingStatus.COMPLETED:
-        return "bg-blue-100 text-blue-800";
+        return "bg-teal-100 text-teal-800";
       case BookingStatus.CANCELLED:
         return "bg-red-100 text-red-800";
       default:
@@ -41,7 +41,7 @@ const AllBookedTour = ({
       case BookingStatus.CANCELLED:
         return <XCircle className="w-5 h-5 text-red-600" />;
       case BookingStatus.COMPLETED:
-        return <CheckCircle className="w-5 h-5 text-blue-600" />;
+        return <CheckCircle className="w-5 h-5 text-teal-600" />;
       default:
         return null;
     }
@@ -132,7 +132,7 @@ const AllBookedTour = ({
               <div className="flex flex-wrap gap-3 mt-6">
                 {booking.tourListingId && (
                   <Link href={`/tours/${booking.tourListingId._id}`}>
-                    <Button size="sm" className="bg-blue-600 text-white">
+                    <Button size="sm" className="bg-teal-600 text-white">
                       View Tour
                     </Button>
                   </Link>

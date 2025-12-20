@@ -173,7 +173,7 @@ export default function CreateListingPage() {
                           description: e.target.value,
                         })
                       }
-                      className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                       rows={4}
                       required
                     />
@@ -192,7 +192,7 @@ export default function CreateListingPage() {
                             category: e.target.value as TourCategory,
                           })
                         }
-                        className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                       >
                         {Object.entries(TOUR_CATEGORIES).map(([key, value]) => (
                           <option key={key} value={key}>
@@ -304,7 +304,7 @@ export default function CreateListingPage() {
                             country: city?.country || '',
                           });
                         }}
-                        className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                       >
                         {POPULAR_CITIES.map((city) => (
                           <option key={city.name} value={city.name}>
@@ -388,7 +388,7 @@ export default function CreateListingPage() {
                           newItinerary[idx] = e.target.value;
                           setFormData({ ...formData, itinerary: newItinerary });
                         }}
-                        className='flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        className='flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500'
                       />
                       {formData.itinerary.length > 1 && (
                         <button
@@ -417,7 +417,7 @@ export default function CreateListingPage() {
                         itinerary: [...formData.itinerary, ''],
                       })
                     }
-                    className='text-blue-600 hover:underline text-sm font-medium'
+                    className='text-teal-600 hover:underline text-sm font-medium'
                   >
                     + Add step
                   </button>
@@ -451,7 +451,7 @@ export default function CreateListingPage() {
                       }}
                       className={`px-4 py-2 rounded-lg border-2 font-medium transition ${
                         formData.languages.includes(lang)
-                          ? 'border-blue-600 bg-blue-50 text-blue-900'
+                          ? 'border-teal-600 bg-teal-50 text-teal-900'
                           : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                       }`}
                     >
@@ -466,7 +466,7 @@ export default function CreateListingPage() {
                 <Button
                   type='submit'
                   disabled={loading}
-                  className='bg-blue-600 hover:bg-blue-700'
+                  className='bg-teal-600 hover:bg-teal-700'
                 >
                   {loading ? 'Creating...' : 'Create Tour'}
                 </Button>

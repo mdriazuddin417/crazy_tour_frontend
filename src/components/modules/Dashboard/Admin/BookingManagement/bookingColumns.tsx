@@ -18,7 +18,7 @@ const getStatusBadge = (status: BookingStatus) => {
     },
     [BookingStatus.COMPLETED]: {
       variant: 'secondary' as const,
-      className: 'bg-blue-50 text-blue-700 border-blue-200',
+      className: 'bg-teal-50 text-teal-700 border-teal-200',
     },
     [BookingStatus.CANCELLED]: {
       variant: 'destructive' as const,

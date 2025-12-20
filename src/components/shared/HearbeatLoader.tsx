@@ -125,18 +125,18 @@ export default function HeartbeatLoader({
       >
         {/* Outer Pulsing Ring */}
         {animated && (
-          <div className="pulse-ring absolute inset-0 rounded-full border-[3px] border-blue-500" />
+          <div className="pulse-ring absolute inset-0 rounded-full border-[3px] border-teal-500" />
         )}
 
         {/* Static Outer Ring */}
-        <div className="absolute inset-0 rounded-full border-[3px] border-blue-500" />
+        <div className="absolute inset-0 rounded-full border-[3px] border-teal-500" />
 
         {/* Inner Container with Heartbeat */}
         <div className="absolute inset-[15%] flex items-center justify-center">
           {showIcon ? (
             <div className={animated ? "heartbeat-icon" : ""}>
               <Activity
-                className="text-blue-500"
+                className="text-teal-500"
                 size={iconSize}
                 strokeWidth={2}
               />
@@ -164,7 +164,7 @@ export default function HeartbeatLoader({
 
         {/* Heartbeat Pulse Effect */}
         {animated && (
-          <div className="pulse-glow absolute inset-[15%] rounded-full bg-blue-500/20" />
+          <div className="pulse-glow absolute inset-[15%] rounded-full bg-teal-500/20" />
         )}
       </div>
 

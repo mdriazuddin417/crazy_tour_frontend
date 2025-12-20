@@ -36,31 +36,25 @@ export async function proxy(request: NextRequest) {
 
     let userRole: UserRole | null = null;
     if (accessToken) {
-        const verifiedToken: JwtPayload | string = jwt.verify(accessToken, process.env.JWT_SECRET as string);
-
-        if (typeof verifiedToken === "string") {
-            await deleteCookie("accessToken");
-            await deleteCookie("refreshToken");
-            return NextResponse.redirect(new URL('/login', request.url));
+        try {
+            const verifiedToken = jwt.verify(accessToken, process.env.JWT_SECRET as string) as JwtPayload;
+            userRole = verifiedToken.role;
+        } catch (error) {
+            if ((error as Error).name === "TokenExpiredError") {
+                await deleteCookie("accessToken");
+                await deleteCookie("refreshToken");
+                return NextResponse.redirect(new URL('/login', request.url));
+            }
         }
-
-        userRole = verifiedToken.role;
     }
 
     const routerOwner = getRouteOwner(pathname);
-
 
     const isAuth = isAuthRoute(pathname)
 
     // Rule 1 : User is logged in and trying to access auth route. Redirect to default dashboard
     if (accessToken && isAuth) {
         return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
-    }
-
-
-    // Rule 2 : User is trying to access open public route
-    if (routerOwner === null) {
-        return NextResponse.next();
     }
 
     // Rule 1 & 2 for open public routes and auth routes

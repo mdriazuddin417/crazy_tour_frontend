@@ -164,7 +164,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   <CardTitle>Your Guide</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Link href={`/profile/${guide._id}`} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link href={`/profile/${guide._id}`} className="flex items-center gap-3 hover:text-teal-600">
                     <div className="w-12 h-12 bg-gray-300 rounded-full" />
                     <div>
                       <p className="font-bold text-gray-900">{guide.name}</p>
@@ -218,7 +218,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
                 <div className="flex justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span className="text-blue-600">${booking.totalPrice}</span>
+                  <span className="text-teal-600">${booking.totalPrice}</span>
                 </div>
 
                 {/* Payment Status */}
@@ -240,7 +240,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                         <Button
                           onClick={handlePayment}
                           disabled={paying}
-                          className="w-full bg-blue-600 hover:bg-blue-700"
+                          className="w-full bg-teal-600 hover:bg-teal-700"
                         >
                           {paying ? "Processing..." : "Pay Now"}
                         </Button>

@@ -28,7 +28,7 @@ const ItWorks = () => {
             ].map((item) => (
               <Card key={item.num} className="text-center">
                 <CardContent className="pt-6">
-                  <div className="text-4xl font-bold text-blue-600 mb-4">
+                  <div className="text-4xl font-bold text-teal-600 mb-4">
                     {item.num}
                   </div>
                   <h3 className="font-bold text-lg mb-2">{item.title}</h3>

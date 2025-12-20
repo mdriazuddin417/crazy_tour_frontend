@@ -27,7 +27,7 @@ const GuidInfo = ({ guide }:any) => {
                     <div className="flex-1">
                       <Link
                         href={`/profile/${guide._id}`}
-                        className="font-bold text-gray-900 hover:text-blue-600"
+                        className="font-bold text-gray-900 hover:text-teal-600"
                       >
                         {guide.name}
                       </Link>

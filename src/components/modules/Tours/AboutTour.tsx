@@ -16,7 +16,7 @@ const AboutTour = ({ listing }: { listing: Partial<TourListing> }) => {
                   <ul className="space-y-2">
                     {listing?.itinerary?.map((item: string, idx: number) => (
                       <li key={idx} className="flex gap-3">
-                        <span className="text-blue-600 font-bold">
+                        <span className="text-teal-600 font-bold">
                           {idx + 1}.
                         </span>
                         <span className="text-gray-700">{item}</span>
@@ -31,7 +31,7 @@ const AboutTour = ({ listing }: { listing: Partial<TourListing> }) => {
                     {listing?.languages?.map((lang: string) => (
                       <span
                         key={lang}
-                        className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm"
+                        className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-sm"
                       >
                         {lang}
                       </span>

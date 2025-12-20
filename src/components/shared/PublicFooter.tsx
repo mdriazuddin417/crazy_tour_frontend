@@ -1,19 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
-
+import logo from '../../assets/images/crazy_tour_logo.png';
 function PublicFooter() {
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="font-bold mb-2">Crazy Tour</h3>
-            <p className="text-sm text-muted-foreground">
+          <div >
+            <Image src={logo} alt="Logo" width={150} />
+              <p className="text-sm md:text-lg text-muted-foreground pt-3">
                 Your travel is our adventure. Explore the world with Crazy Tour!
             </p>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="font-semibold mb-2 text-sm md:text-lg">Quick Links</h3>
+            <ul className="space-y-2 text-sm md:text-lg">
               <li>
                 <Link
                   href="/"
@@ -49,7 +50,7 @@ function PublicFooter() {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Support</h3>
+            <h3 className="font-semibold mb-2 text-sm md:text-lg">Support</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -86,7 +87,7 @@ function PublicFooter() {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Contact Us</h3>
+            <h3 className="font-semibold mb-2 text-sm md:text-lg">Contact Us</h3>
             <p className="text-sm text-muted-foreground">
               Brahmanbaria
               <br />

@@ -29,7 +29,7 @@ const RegisterForm = () => {
               onClick={() => setRole(UserRole.TOURIST)}
               className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition ${
                 role === UserRole.TOURIST
-                  ? 'border-blue-600 bg-blue-50 text-blue-900'
+                  ? 'border-teal-600 bg-teal-50 text-teal-900'
                   : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -40,7 +40,7 @@ const RegisterForm = () => {
               onClick={() => setRole(UserRole.GUIDE)}
               className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition ${
                 role === UserRole.GUIDE
-                  ? 'border-blue-600 bg-blue-50 text-blue-900'
+                  ? 'border-teal-600 bg-teal-50 text-teal-900'
                   : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -109,7 +109,7 @@ const RegisterForm = () => {
 
             <FieldDescription className='px-6 text-center'>
               Already have an account?{' '}
-              <a href='/login' className='text-blue-600 hover:underline'>
+              <a href='/login' className='text-teal-600 hover:underline'>
                 Sign in
               </a>
             </FieldDescription>

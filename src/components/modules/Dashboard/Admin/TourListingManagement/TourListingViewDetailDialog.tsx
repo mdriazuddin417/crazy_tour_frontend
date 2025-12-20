@@ -165,7 +165,7 @@ const TourListingViewDetailDialog = ({
               <>
                 <div>
                   <div className='flex items-center gap-2 mb-4'>
-                    <Languages className='h-5 w-5 text-blue-600' />
+                    <Languages className='h-5 w-5 text-teal-600' />
                     <h3 className='font-semibold text-lg'>Languages</h3>
                   </div>
                   <div className='flex flex-wrap gap-2 bg-muted/50 p-4 rounded-lg'>

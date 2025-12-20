@@ -1,47 +1,100 @@
-import { Button } from "@/components/ui/button"
-import { MapPin } from "lucide-react"
-import Link from "next/link"
-const Hero = () => {
-    return (
-        <div>
-            <section className="relative px-4 py-20 sm:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
-              Experience Travel <span className="text-blue-600">Like a Local</span>
+"use client"
+
+import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
+
+export function Hero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+     if (videoRef.current) {
+    videoRef.current.playbackRate = 0.5; // Change this number to your desired speed
+  }
+    setIsLoaded(true)
+  }, [])
+  
+
+  return (
+    <section className="relative h-[650px] lg:h-[90vh] overflow-hidden">
+      <div className="absolute inset-0">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ filter: "brightness(0.85)" }}
+          poster="https://res.cloudinary.com/dejo5rgg1/image/upload/v1765477816/c4vods8ocxn-1765477816668-testtour1-jpg.jpg.jpg"
+        >
+            <source src="https://res.cloudinary.com/dejo5rgg1/video/upload/v1766237371/tour_video_w4rmph.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/50 to-transparent" />
+      </div>
+
+      <div className="relative container mx-auto px-4 h-full flex items-center">
+        <div className="max-w-3xl space-y-8">
+          <div
+            className={`space-y-4 transition-all duration-1000 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <div className="inline-block">
+              <span className="text-teal-400 font-semibold text-sm tracking-wider uppercase animate-fade-in">
+                Discover Portugal
+              </span>
+              <div
+                className="h-0.5 bg-teal-400 mt-2 animate-width-expand"
+                style={{ animation: "widthExpand 1.2s ease-out forwards" }}
+              />
+            </div>
+
+            <h1
+              className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance transition-all duration-1000 delay-200 ${
+                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              The Best Trips Around Portugal Begin With Us
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Connect with passionate local guides and discover authentic, personalized experiences in destinations
-              around the world.
+
+            <p
+              className={`text-lg md:text-xl text-white/90 max-w-xl text-pretty leading-relaxed transition-all duration-1000 delay-300 ${
+                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              Experience authentic Portuguese culture, breathtaking landscapes, and unforgettable adventures with expert
+              local guides.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/explore">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8">
-                  Explore Tours
-                </Button>
-              </Link>
-              <Link href="/register?role=guide">
-                <Button size="lg" variant="outline" className="px-8 bg-transparent">
-                  Become a Guide
-                </Button>
-              </Link>
-            </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="mt-12 max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center gap-2 text-gray-700">
-              <MapPin className="w-5 h-5 text-blue-600" />
-              <span className="font-medium">Where are you going?</span>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">Start your journey with a local guide</p>
+          <div
+            className={`flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-500 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <Button
+              size="lg"
+              className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
+            >
+              Book A Trip Now
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-slate-900 px-8 py-6 text-lg font-semibold backdrop-blur-sm bg-white/10 hover:scale-105 transition-all active:scale-95"
+            >
+              View Tours
+            </Button>
           </div>
         </div>
-      </section>
-        </div>
-    );
-};
+      </div>
 
-export default Hero;
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
+          <div className="w-1.5 h-2 bg-white/70 rounded-full" />
+        </div>
+      </div>
+    </section>
+  )
+}
