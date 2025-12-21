@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
+import { TourListing } from '@/lib/types';
 import { Clock, Globe, MapPin, Star, Users } from 'lucide-react';
 
-const FeatureTourCard = ({ tour }) => {
+const FeatureTourCard = ({ tour } : { tour: TourListing}) => {
   return (
     <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-100 hover:shadow-2xl transition-shadow duration-300 group">
       {/* Image Section */}

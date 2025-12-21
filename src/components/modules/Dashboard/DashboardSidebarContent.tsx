@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { NavSection } from "@/types/dashboard.interface";
 
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -28,7 +29,7 @@ const DashboardSidebarContent = ({
       {/* Logo/Brand */}
       <div className="flex h-16 items-center border-b px-6">
         <Link href={'/'} className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">Crazy Tour</span>
+          <Image src={'/logo.png'} alt="Logo" width={150} height={100}/>
         </Link>
       </div>
 

@@ -7,7 +7,7 @@ function PublicFooter() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div >
-            <Image src={logo} alt="Logo" width={150} />
+            <Image src={logo} alt="Logo" width={150} height={100}/>
               <p className="text-sm md:text-lg text-muted-foreground pt-3">
                 Your travel is our adventure. Explore the world with Crazy Tour!
             </p>
@@ -97,7 +97,7 @@ function PublicFooter() {
             </p>
           </div>
         </div>
-        <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
+        <div className="mt-8 pt-4 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} Crazy Tour. All Rights Reserved.
         </div>
       </div>

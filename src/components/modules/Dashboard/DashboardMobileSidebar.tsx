@@ -8,7 +8,7 @@ import { getIconComponent } from "@/lib/icon-mapper";
 import { IUser } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { NavSection } from "@/types/dashboard.interface";
-
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -29,7 +29,7 @@ const DashboardMobileSidebar = ({
       {/* Logo */}
       <div className="flex h-16 items-center border-b px-6">
         <Link href={dashboardHome}>
-          <span className="text-xl font-bold text-primary">Crazy Tour</span>
+         <Image src={'/logo.png'} alt="Logo" width={150} height={100}/>
         </Link>
       </div>
       <SheetTitle className="sr-only">Navigation Menu</SheetTitle>

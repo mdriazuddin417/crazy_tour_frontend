@@ -4,15 +4,21 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const videoRef = useRef(null);
+const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-     if (videoRef.current) {
-    videoRef.current.playbackRate = 0.5; // Change this number to your desired speed
-  }
-    setIsLoaded(true)
-  }, [])
+useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+
+    // Move state update to the next frame to allow the entrance animation to trigger
+    const timeout = setTimeout(() => {
+      setIsLoaded(true);
+    }, 50);
+
+    return () => clearTimeout(timeout);
+  }, []);
   
 
   return (

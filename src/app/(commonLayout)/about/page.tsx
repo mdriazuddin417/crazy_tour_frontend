@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Award, Heart, MapPin, Users } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -85,6 +86,7 @@ export default function AboutPage() {
                 icon: <Heart className='w-8 h-8' />,
                 title: 'Authenticity',
                 desc: 'We prioritize genuine, unfiltered experiences over commercialized tourism',
+                image: '/authenticity.png'
               },
               {
                 icon: <Users className='w-8 h-8' />,
@@ -152,24 +154,29 @@ export default function AboutPage() {
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
             {[
               {
-                name: 'Sarah Chen',
+                name: 'MD Riaz Uddin',
                 role: 'Co-Founder & CEO',
                 desc: 'Former travel journalist passionate about authentic storytelling and cultural exchange.',
+                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1766289779/uniqu_photo_l7aqw8.jpg'
               },
               {
-                name: 'Marcus Rodriguez',
+                name: 'Abubakar Sadiq',
                 role: 'Co-Founder & CTO',
                 desc: 'Tech entrepreneur dedicated to building platforms that empower local communities.',
+                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1766289779/uniqu_photo_l7aqw8.jpg'
               },
               {
-                name: 'Aisha Patel',
+                name: 'Sirazul Islam',
                 role: 'Head of Community',
                 desc: 'Community builder and guide advocate working to ensure fair treatment and support for all guides.',
+                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1766289779/uniqu_photo_l7aqw8.jpg'
               },
             ].map((member) => (
               <Card key={member.name} className='text-center'>
                 <CardContent className='p-6'>
-                  <div className='w-20 h-20 rounded-full bg-linear-to-br from-teal-400 to-teal-600 mx-auto mb-4' />
+                  <div className='w-20 h-20 rounded-full bg-linear-to-br from-teal-400 to-teal-600 mx-auto mb-4 overflow-hidden p-1' >
+                    <Image src={member.image} alt={member.name} width={75} height={75} className='rounded-full object-cover hover:scale-110 transition-all duration-500' />
+                  </div>
                   <h3 className='font-bold text-lg text-gray-900'>
                     {member.name}
                   </h3>

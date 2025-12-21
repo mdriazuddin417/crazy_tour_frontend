@@ -1,6 +1,7 @@
+import { TourListing } from '@/lib/types';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 
-const DestinationCard = ({ destination }) => {
+const DestinationCard = ({ destination }: { destination: TourListing }) => {
   return (
    <div className="group relative w-full h-[420px] rounded-[2rem] overflow-hidden cursor-pointer bg-slate-900 transition-all duration-500 hover:-translate-y-2 ">
       
