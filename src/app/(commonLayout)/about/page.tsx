@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Award, Heart, MapPin, Users } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -163,19 +162,19 @@ export default function AboutPage() {
                 name: 'Abubakar Sadiq',
                 role: 'Co-Founder & CTO',
                 desc: 'Tech entrepreneur dedicated to building platforms that empower local communities.',
-                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1766289779/uniqu_photo_l7aqw8.jpg'
+                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1748339690/samples/smile.jpg'
               },
               {
                 name: 'Sirazul Islam',
                 role: 'Head of Community',
                 desc: 'Community builder and guide advocate working to ensure fair treatment and support for all guides.',
-                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1766289779/uniqu_photo_l7aqw8.jpg'
+                image: 'https://res.cloudinary.com/dejo5rgg1/image/upload/v1748339683/samples/people/smiling-man.jpg'
               },
             ].map((member) => (
               <Card key={member.name} className='text-center'>
                 <CardContent className='p-6'>
                   <div className='w-20 h-20 rounded-full bg-linear-to-br from-teal-400 to-teal-600 mx-auto mb-4 overflow-hidden p-1' >
-                    <Image src={member.image} alt={member.name} width={75} height={75} className='rounded-full object-cover hover:scale-110 transition-all duration-500' />
+                    <img src={member.image} alt={member.name} className='rounded-full object-cover hover:scale-110 transition-all duration-500 w-full h-full' />
                   </div>
                   <h3 className='font-bold text-lg text-gray-900'>
                     {member.name}

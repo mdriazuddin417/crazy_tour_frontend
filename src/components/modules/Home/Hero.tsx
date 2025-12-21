@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
-const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-useEffect(() => {
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 0.5;
     }
@@ -19,7 +20,6 @@ useEffect(() => {
 
     return () => clearTimeout(timeout);
   }, []);
-  
 
   return (
     <section className="relative h-[650px] lg:h-[90vh] overflow-hidden">
@@ -34,7 +34,10 @@ useEffect(() => {
           style={{ filter: "brightness(0.85)" }}
           poster="https://res.cloudinary.com/dejo5rgg1/image/upload/v1765477816/c4vods8ocxn-1765477816668-testtour1-jpg.jpg.jpg"
         >
-            <source src="https://res.cloudinary.com/dejo5rgg1/video/upload/v1766237371/tour_video_w4rmph.mp4" type="video/mp4" />
+          <source
+            src="https://res.cloudinary.com/dejo5rgg1/video/upload/v1766237371/tour_video_w4rmph.mp4"
+            type="video/mp4"
+          />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/50 to-transparent" />
       </div>
@@ -58,7 +61,9 @@ useEffect(() => {
 
             <h1
               className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance transition-all duration-1000 delay-200 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                isLoaded
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
               }`}
             >
               The Best Trips Around Portugal Begin With Us
@@ -66,11 +71,13 @@ useEffect(() => {
 
             <p
               className={`text-lg md:text-xl text-white/90 max-w-xl text-pretty leading-relaxed transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                isLoaded
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
               }`}
             >
-              Experience authentic Portuguese culture, breathtaking landscapes, and unforgettable adventures with expert
-              local guides.
+              Experience authentic Portuguese culture, breathtaking landscapes,
+              and unforgettable adventures with expert local guides.
             </p>
           </div>
 
@@ -79,19 +86,23 @@ useEffect(() => {
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <Button
-              size="lg"
-              className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
-            >
-              Book A Trip Now
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-slate-900 px-8 py-6 text-lg font-semibold backdrop-blur-sm bg-white/10 hover:scale-105 transition-all active:scale-95"
-            >
-              View Tours
-            </Button>
+            <Link href="/explore">
+              <Button
+                size="lg"
+                className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
+              >
+                Book A Trip Now
+              </Button>
+            </Link>
+            <Link href="/explore">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-slate-900 px-8 py-6 text-lg font-semibold backdrop-blur-sm bg-white/10 hover:scale-105 transition-all active:scale-95"
+              >
+                View Tours
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -102,5 +113,5 @@ useEffect(() => {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -78,7 +78,7 @@ export function ExploreTourHero() {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % tours.length)
-    }, 6000) // Increased to 6 seconds for better readability
+    }, 3000) // Increased to 6 seconds for better readability
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
